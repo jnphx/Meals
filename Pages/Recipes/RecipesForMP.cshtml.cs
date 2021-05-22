@@ -20,24 +20,8 @@ namespace WeeklyMeals.Pages.Recipes
 
         public IList<MealPlan> MealPlans { get; set; }
         public List<SelectListItem> Options { get; set; }
-        public UserSettings userSettings;
         [BindProperty]
         public int SelectedMealPlanId { get; set; }
-
-        //public async Task OnGetAsync(int SelectedMealPlanId)
-        //{
-        //    IQueryable<MealPlan> MealPlansIQ = _context.MealPlans
-        //            .Include(mealplan => mealplan.Recipes)
-        //                .ThenInclude(recipe => recipe.Ingredients)
-        //                    .ThenInclude(ingredient => ingredient.Food)
-        //                        .ThenInclude(ingFood => ingFood.GroceryAisle);
-
-        //    if (SelectedMealPlanId != 0)
-        //    {
-        //        MealPlansIQ = MealPlansIQ.Where(mp => mp.MealPlanID == SelectedMealPlanId);
-        //    }
-        //    Recipes = await _context.Recipes.ToListAsync();
-        //}
 
         public async Task OnGetAsync(int SelectedMealPlanId)
         {
@@ -45,36 +29,29 @@ namespace WeeklyMeals.Pages.Recipes
                     .Include(e => e.MealPlanRecipes)
                     .ThenInclude(c => c.Recipe);
 
+            var userSettings = await _context.UserSettings.FirstOrDefaultAsync();
+
             if (SelectedMealPlanId == 0)
             {
-                //First time through, they haven't selected.
-                var selectedPlan = _context.UserSettings.FirstOrDefault(x => x.MealPlanSelection > 0);
-                if (selectedPlan != null)
+                //First time through, they haven't selected, get from UserSettings
+                
+                if (userSettings != null)
                 {
                     //They have selected a recipe
-                    SelectedMealPlanId = selectedPlan.MealPlanSelection;
-                }
-                else
-                {
-                    var defaultPlan = RecipesIQ.FirstOrDefault();
-                    if (defaultPlan != null)
-                    {
-                        SelectedMealPlanId = defaultPlan.MealPlanID;
-                    }
+                    SelectedMealPlanId = userSettings.MealPlanID;
                 }
             } else
             {
                 //They selected a mealplan from the dropdown, update UserSettings.MealPlanSelection
                 
-                var mealPlanToUpdate = await _context.UserSettings.FirstOrDefaultAsync();
-                mealPlanToUpdate.MealPlanSelection = SelectedMealPlanId;
+                userSettings.MealPlanID = SelectedMealPlanId;
 
-                if (mealPlanToUpdate != null)
+                if (userSettings != null)
                 {
                     if (await TryUpdateModelAsync<UserSettings>(
-                        mealPlanToUpdate,
+                        userSettings,
                         "",
-                        s => s.MealPlanSelection))
+                        s => s.MealPlanID))
                     {
                         await _context.SaveChangesAsync();
                         //return RedirectToPage("./Index");

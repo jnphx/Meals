@@ -11,5 +11,7 @@ namespace WeeklyMeals.Models
         public string Name { get; set; }
 
         public ICollection<MealPlanRecipe> MealPlanRecipes { get; set; }
+
+        public ICollection<UserSettings> UserSettings { get; set; }
     }
 }

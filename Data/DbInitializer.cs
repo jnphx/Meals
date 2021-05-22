@@ -170,7 +170,7 @@ namespace WeeklyMeals.Data
 
             var userSettings = new UserSettings[]
             {
-                new UserSettings{MealPlanSelection=2 }
+                new UserSettings{MealPlanID=1 }
             };
 
             context.UserSettings.AddRange(userSettings);

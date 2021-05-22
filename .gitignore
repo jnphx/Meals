@@ -1,2 +1,4 @@
 # Build results
-[Dd]ebug/
+Debug/
+obj/
+Migrations/

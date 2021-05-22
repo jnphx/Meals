@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WeeklyMeals.Models
 {
     public class UserSettings
     {
         public int ID { get; set; }
-        public int MealPlanSelection { get; set; }
+
+        [Required]
+        public int MealPlanID { get; set; }
+
+        public MealPlan MealPlan { get; set; }
     }
 }
