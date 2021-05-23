@@ -1,0 +1,64 @@
+﻿@page
+@model WeeklyMeals.Pages.MealPlans.WeekendPrepModel
+@{
+}
+
+@{
+}
+@{
+    ViewData["Title"] = "Weekend Prep";
+}
+
+<h1>Weekend Prep</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Food
+            </th>
+            <th>
+                Size
+            </th>
+            <th>
+                SizeType
+            </th>
+            <th>
+                Prep
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.MealPlans)
+        {
+            <h3>@item.Name</h3>
+
+            foreach (var recipe in item.MealPlanRecipes)
+            {
+                foreach (var ingred in recipe.Recipe.Ingredients)
+                {
+    <tr>
+        <td>
+            <!-- Food name-->
+            @Html.DisplayFor(modelItem => ingred.Food.Name)
+        </td>
+        <td>
+            <!-- Amount -->
+            @Html.DisplayFor(modelItem => ingred.Size)
+        </td>
+        <td>
+            <!-- Amount -->
+            @Html.DisplayFor(modelItem => ingred.SizeType)
+        </td>
+        <td>
+            <!-- Prep way-->
+            @Html.DisplayFor(i => ingred.PrepType.Name)
+        </td>
+    </tr>
+                }
+
+            }
+        }
+    </tbody>
+</table>
+

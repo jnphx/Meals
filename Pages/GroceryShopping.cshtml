@@ -9,23 +9,10 @@
 
 <h1>Grocery List</h1>
 
-<form asp-page="./GroceryShopping" method="get">
-    <div class="form-actions no-color">
-        <p>
-            Choose meal plan:
-            <select asp-for="SelectedMealPlanId" asp-items="Model.Options">
-                <option value="">Pick your meal plan</option>
-            </select>
-            <input type="submit" value="Search" class="btn btn-primary" />
-        </p>
-    </div>
-</form>
-
 <table class="table">
     <thead>
         <tr>
             <th>
-                @* Html.DisplayNameFor(model => model.GroceryAisles[0].Name) *@
                 Food
             </th>
         </tr>
@@ -34,8 +21,9 @@
         @{ string tempAisle = ""; }
         @foreach (var item in Model.MealPlans)
         {
+            <h3>@item.Name</h3>
             foreach (var recipe in item.MealPlanRecipes)
-            { 
+            {
                 foreach (var ingred in recipe.Recipe.Ingredients)
                 {
                     if (!ingred.Food.GroceryAisle.Name.Equals(tempAisle))

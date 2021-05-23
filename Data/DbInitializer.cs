@@ -37,9 +37,13 @@ namespace WeeklyMeals.Data
             context.SizeTypes.AddRange(sizeTypes);
             context.SaveChanges();
 
+            var chop = new PrepType { Name = "Chop" };
+            var noprep = new PrepType { Name = "No prep" };
+
             var prepTypes = new PrepType[]
             {
-                new PrepType { Name = "Chop" },
+                new PrepType {Name = "No prep"},
+                chop,
                 new PrepType { Name = "Cook grains" },
                 new PrepType { Name = "Cook beans" },
                 new PrepType { Name = "Make sauce" }
@@ -47,10 +51,13 @@ namespace WeeklyMeals.Data
             context.PrepTypes.AddRange(prepTypes);
             context.SaveChanges();
 
+            var grainsBeans = new GroceryAisle { Name = "Grains/Beans" };
+            var produce = new GroceryAisle { Name = "Produce" };
+
             var groceryAisles = new GroceryAisle[]
             {
-                new GroceryAisle { Name = "Produce" },
-                new GroceryAisle { Name = "Grains/Beans" },
+                produce,
+                grainsBeans,
                 new GroceryAisle { Name = "Condiments" },
                 new GroceryAisle { Name = "Plant milk" },
                 new GroceryAisle { Name = "Frozen" },
@@ -60,24 +67,33 @@ namespace WeeklyMeals.Data
             context.GroceryAisles.AddRange(groceryAisles);
             context.SaveChanges();
 
+            var lentils = new Food { Name = "Lentils", GroceryAisle = grainsBeans };
+            var basmati = new Food { Name = "Basmati rice", GroceryAisle = grainsBeans };
+            var garlic = new Food { Name = "Garlic", GroceryAisle = produce };
+            var onions = new Food { Name = "Onion", GroceryAisle = produce };
+
             var foods = new Food[]
             {
-                new Food { Name = "Lentils", GroceryAisleID=2 },
-                new Food { Name = "Basmati rice", GroceryAisleID=2 },
-                new Food { Name = "Garlic", GroceryAisleID=1 },
+                lentils,
+                basmati,
+                garlic,
+                onions,
                 new Food { Name = "Mushrooms", GroceryAisleID=1 },
-                new Food { Name = "Onion", GroceryAisleID=1 },
+                onions,
                 new Food { Name = "Vegetable stock", GroceryAisleID=6 },
                 new Food { Name = "Cumin seeds", GroceryAisleID=7 }
             };
             context.Foods.AddRange(foods);
             context.SaveChanges();
 
+            var ingredLentils = new Ingredient { Food = lentils, PrepType = noprep, Size = 0.5, SizeType = 1 };
+            var ingredOnions = new Ingredient { Food = onions, PrepType = chop, Size = 0.5, SizeType = 1 };
+            var ingredGarlic = new Ingredient { Food = garlic, PrepType = chop, Size = 0.5, SizeType = 1 };
+
             var ingreds = new Ingredient[] {
-
-
-           new Ingredient { FoodID = 3, PrepTypeID = 2, Size = 0.5, SizeType = 1},
-            new Ingredient { FoodID = 4, PrepTypeID = 2, Size = 0.5, SizeType = 1 },
+                ingredLentils,
+                ingredOnions,
+                ingredGarlic,
             new Ingredient { FoodID = 5, PrepTypeID = 2, Size = 0.5, SizeType = 1},
             new Ingredient { FoodID = 6, PrepTypeID = 2, Size = 0.5, SizeType = 1},
             new Ingredient { FoodID = 7, PrepTypeID = 2, Size = 0.5, SizeType = 1},
@@ -93,6 +109,9 @@ namespace WeeklyMeals.Data
             {
                 new Ingredient { FoodID = 2, PrepTypeID = 2, Size = 0.5, SizeType = 1},
                 new Ingredient { FoodID = 1, PrepTypeID = 2, Size = 0.5, SizeType = 1},
+                ingredLentils,
+                ingredOnions,
+                ingredGarlic,
             };
 
             context.Ingredients.AddRange(ingreds);

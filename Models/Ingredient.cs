@@ -22,5 +22,7 @@ namespace WeeklyMeals.Models
         //foreign key to Recipe
         //public int RecipeID;
         public Food Food { get; set; }
+
+        public PrepType PrepType { get; set; }
     }
 }
