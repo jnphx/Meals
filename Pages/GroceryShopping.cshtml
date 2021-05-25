@@ -1,5 +1,5 @@
 ﻿@page
-@using WeeklyMeals.Models
+@using WeeklyMeals.Models.WeeklyMealsViewModels
 @model WeeklyMeals.Pages.GroceryShoppingModel
 @{
 }
@@ -19,33 +19,26 @@
     </thead>
     <tbody>
         @{ string tempAisle = ""; }
-        @foreach (var item in Model.MealPlans)
+        @foreach (var item in Model.FoodsGroups)
         {
-            <h3>@item.Name</h3>
-            foreach (var recipe in item.MealPlanRecipes)
+            if (!item.AisleName.Equals(tempAisle))
             {
-                foreach (var ingred in recipe.Recipe.Ingredients)
-                {
-                    if (!ingred.Food.GroceryAisle.Name.Equals(tempAisle))
+                <tr>
+                    @if (!item.AisleName.Equals(tempAisle))
                     {
-                        <tr>
-                            @if (!ingred.Food.GroceryAisle.Name.Equals(tempAisle))
-                            {
-                                <td class="alert-danger">
-                                    @Html.DisplayFor(modelItem => ingred.Food.GroceryAisle.Name)
-                                </td>
-                            }
-                        </tr>
-                    }
-                    <tr>
-                        <td>
-                            <!-- Food name-->
-                            @Html.DisplayFor(modelItem => ingred.Food.Name)
+                        <td class="alert-danger">
+                            @Html.DisplayFor(modelItem => item.AisleName)
                         </td>
-                    </tr>
-                }
-
+                        tempAisle = item.AisleName;
+                    }
+                </tr>
             }
+            <tr>
+                <td>
+                    <!-- Food name-->
+                    @Html.DisplayFor(modelItem => item.FoodName), @Html.DisplayFor(modelItem => item.TotalAmount) @Html.DisplayFor(modelItem => item.AmountType)
+                </td>
+            </tr>
         }
     </tbody>
 </table>

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WeeklyMeals.Models
 {
@@ -14,7 +13,7 @@ namespace WeeklyMeals.Models
         public double Size { get; set; }
 
         [Required]
-        public double SizeType { get; set; }
+        public int SizeTypeID { get; set; }
 
         [Required]
         public double PrepTypeID { get; set; }
@@ -24,5 +23,7 @@ namespace WeeklyMeals.Models
         public Food Food { get; set; }
 
         public PrepType PrepType { get; set; }
+
+        public SizeType SizeType { get; set; }
     }
 }

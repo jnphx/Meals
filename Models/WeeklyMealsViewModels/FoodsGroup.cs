@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WeeklyMeals.Models.WeeklyMealsViewModels
 {
@@ -8,5 +7,9 @@ namespace WeeklyMeals.Models.WeeklyMealsViewModels
         public string AisleName;
 
         public string FoodName;
+
+        public double TotalAmount;
+
+        public string AmountType;
     }
 }

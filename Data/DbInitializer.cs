@@ -86,29 +86,29 @@ namespace WeeklyMeals.Data
             context.Foods.AddRange(foods);
             context.SaveChanges();
 
-            var ingredLentils = new Ingredient { Food = lentils, PrepType = noprep, Size = 0.5, SizeType = 1 };
-            var ingredOnions = new Ingredient { Food = onions, PrepType = chop, Size = 0.5, SizeType = 1 };
-            var ingredGarlic = new Ingredient { Food = garlic, PrepType = chop, Size = 0.5, SizeType = 1 };
+            var ingredLentils = new Ingredient { Food = lentils, PrepType = noprep, Size = 0.5, SizeTypeID = 1 };
+            var ingredOnions = new Ingredient { Food = onions, PrepType = chop, Size = 0.5, SizeTypeID = 1 };
+            var ingredGarlic = new Ingredient { Food = garlic, PrepType = chop, Size = 0.5, SizeTypeID = 1 };
 
             var ingreds = new Ingredient[] {
                 ingredLentils,
                 ingredOnions,
                 ingredGarlic,
-            new Ingredient { FoodID = 5, PrepTypeID = 2, Size = 0.5, SizeType = 1},
-            new Ingredient { FoodID = 6, PrepTypeID = 2, Size = 0.5, SizeType = 1},
-            new Ingredient { FoodID = 7, PrepTypeID = 2, Size = 0.5, SizeType = 1},
-            new Ingredient { FoodID = 7, PrepTypeID = 2, Size = 0.5, SizeType = 1},
-            new Ingredient { FoodID = 6, PrepTypeID = 2, Size = 0.5, SizeType = 1},
-            new Ingredient { FoodID = 2, PrepTypeID = 2, Size = 0.5, SizeType = 1},
-            new Ingredient { FoodID = 1, PrepTypeID = 2, Size = 0.5, SizeType = 1},
-            new Ingredient { FoodID = 4, PrepTypeID = 2, Size = 0.5, SizeType = 1}
+            new Ingredient { FoodID = 5, PrepTypeID = 2, Size = 0.6, SizeTypeID = 1},
+            new Ingredient { FoodID = 6, PrepTypeID = 2, Size = 0.7, SizeTypeID = 1},
+            new Ingredient { FoodID = 7, PrepTypeID = 2, Size = 0.8, SizeTypeID = 1},
+            new Ingredient { FoodID = 7, PrepTypeID = 2, Size = 0.9, SizeTypeID = 1},
+            new Ingredient { FoodID = 6, PrepTypeID = 2, Size = 2.2, SizeTypeID = 1},
+            new Ingredient { FoodID = 2, PrepTypeID = 2, Size = 1.1, SizeTypeID = 1},
+            new Ingredient { FoodID = 1, PrepTypeID = 2, Size = 1.2, SizeTypeID = 1},
+            new Ingredient { FoodID = 4, PrepTypeID = 2, Size = 0.3, SizeTypeID = 1}
 
         };
 
             var ingredients = new Ingredient[]
             {
-                new Ingredient { FoodID = 2, PrepTypeID = 2, Size = 0.5, SizeType = 1},
-                new Ingredient { FoodID = 1, PrepTypeID = 2, Size = 0.5, SizeType = 1},
+                new Ingredient { FoodID = 2, PrepTypeID = 2, Size = 0.23, SizeTypeID = 1},
+                new Ingredient { FoodID = 1, PrepTypeID = 2, Size = 0.4, SizeTypeID = 2},
                 ingredLentils,
                 ingredOnions,
                 ingredGarlic,
