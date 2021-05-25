@@ -1,5 +1,6 @@
 ﻿@page
 @model WeeklyMeals.Pages.MealPlans.WeekendPrepModel
+@using WeeklyMeals.Models.WeeklyMealsViewModels
 @{
 }
 
@@ -29,36 +30,28 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.MealPlans)
+        @foreach (var item in Model.FoodsGroups)
         {
-            <h3>@item.Name</h3>
-
-            foreach (var recipe in item.MealPlanRecipes)
-            {
-                foreach (var ingred in recipe.Recipe.Ingredients)
-                {
-    <tr>
-        <td>
-            <!-- Food name-->
-            @Html.DisplayFor(modelItem => ingred.Food.Name)
-        </td>
-        <td>
-            <!-- Amount -->
-            @Html.DisplayFor(modelItem => ingred.Size)
-        </td>
-        <td>
-            <!-- Amount -->
-            @Html.DisplayFor(modelItem => ingred.SizeType)
-        </td>
-        <td>
-            <!-- Prep way-->
-            @Html.DisplayFor(i => ingred.PrepType.Name)
-        </td>
-    </tr>
-                }
-
-            }
+        <tr>
+            <td>
+                <!-- Food name-->
+                @Html.DisplayFor(modelItem => item.FoodName)
+            </td>
+            <td>
+                <!-- Amount -->
+                @Html.DisplayFor(modelItem => item.TotalAmount)
+            </td>
+            <td>
+                <!-- Amount -->
+                @Html.DisplayFor(modelItem => item.AmountType)
+            </td>
+            <td>
+                <!-- Prep way-->
+                @Html.DisplayFor(i => item.PrepType)
+            </td>
+        </tr>
         }
+
     </tbody>
 </table>
 

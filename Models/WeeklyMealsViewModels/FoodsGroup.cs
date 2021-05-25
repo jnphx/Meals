@@ -11,5 +11,7 @@ namespace WeeklyMeals.Models.WeeklyMealsViewModels
         public double TotalAmount;
 
         public string AmountType;
+
+        public string PrepType;
     }
 }
