@@ -36,7 +36,7 @@
             <tr>
                 <td>
                     <!-- Food name-->
-                    @Html.DisplayFor(modelItem => item.FoodName), @Html.DisplayFor(modelItem => item.TotalAmount) @Html.DisplayFor(modelItem => item.AmountType)
+                    @Html.DisplayFor(modelItem => item.FoodName), @String.Format("{0:0.0}", item.TotalAmount) @Html.DisplayFor(modelItem => item.AmountType)
                 </td>
             </tr>
         }

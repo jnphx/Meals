@@ -29,16 +29,14 @@
             {
                 <div class="card">
                     <div class="row card-body">
-                        <img class="col-sm-5" src="~/images/noimage.jpg" />
+                        <img class="col-sm-5" src="@Url.Content(@recipe.Recipe.ImageUrl)" />
 
                         <div class="col-sm-7 d-flex flex-column align-items-start">
                             <h3 class="card-title"><a asp-page="/Recipes/Details" asp-route-ID="@recipe.Recipe.RecipeID">@recipe.Recipe.Name</a></h3>
-                            <div class="align-self-botton" style="margin-top: auto;">
+                            <div class="align-self-bottom" style="margin-top: auto;">
                                 <div class="form-actions no-color">
-                                    <a asp-page="/Recipes/Details" asp-route-ID="@recipe.Recipe.RecipeID"
-                                       class="btn btn-primary m-1">View</a>
                                     <a asp-page="/Recipes/Delete" asp-route-ID="@recipe.Recipe.RecipeID"
-                                       class="btn btn-danger m-1">Delete</a>
+                                       class="btn btn-danger m-1">Remove from Plan</a>
                                 </div>
                             </div>
                         </div>
@@ -46,6 +44,6 @@
                 </div>
             }
         }
-        <a asp-page="/Recipes/Create" class="btn btn-primary m-1">Add a new recipe</a>
+        <a asp-page="/Recipes/ChooseRecipe" class="btn btn-primary m-1">Add a new recipe</a>
     </div>
 </div>

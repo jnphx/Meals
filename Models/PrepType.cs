@@ -4,7 +4,7 @@ namespace WeeklyMeals.Models
 {
     public class PrepType
     {
-        public int PrepTypeID { get; set; }
+        public int ID { get; set; }
 
         [Required]
         public string Name { get; set; }

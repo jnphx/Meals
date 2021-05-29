@@ -39,10 +39,10 @@
             </td>
             <td>
                 <!-- Amount -->
-                @Html.DisplayFor(modelItem => item.TotalAmount)
+                @String.Format("{0:0.0}", item.TotalAmount)
             </td>
             <td>
-                <!-- Amount -->
+                <!-- AmountType -->
                 @Html.DisplayFor(modelItem => item.AmountType)
             </td>
             <td>

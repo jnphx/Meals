@@ -25,6 +25,7 @@ namespace WeeklyMeals.Pages.MealPlans
             FoodsGroups = await _context.MealPlans
                 .SelectMany(x => x.MealPlanRecipes)
                 .SelectMany(y => y.Recipe.Ingredients)
+                .Where(z => z.PrepTypeID != 0 && !z.PrepType.Name.Equals("No prep"))
                 .OrderBy(x => x.Food.GroceryAisle.Name)
                 .ThenBy(x => x.Food.Name)
                 .GroupBy(x => new { Aisle = x.Food.GroceryAisle.Name, Food = x.Food.Name, MsType = x.SizeType.Name, Prep = x.PrepType.Name })

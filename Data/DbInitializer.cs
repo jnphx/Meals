@@ -42,7 +42,7 @@ namespace WeeklyMeals.Data
 
             var prepTypes = new PrepType[]
             {
-                new PrepType {Name = "No prep"},
+                noprep,
                 chop,
                 new PrepType { Name = "Cook grains" },
                 new PrepType { Name = "Cook beans" },
@@ -146,11 +146,11 @@ namespace WeeklyMeals.Data
 
             var recipes = new Recipe[]
             {
-                new Recipe{Name="Lentils & Rice", Steps = steps, Ingredients = ingredients},
-                new Recipe{Name="Black bean chili"},
+                new Recipe{Name="Lentils & Rice", Steps = steps, Ingredients = ingredients, ImageUrl = "~/images/lentilsandrice.jpg"},
+                new Recipe{Name="Black bean chili", ImageUrl = "~/images/chili.jpg"},
                 //new Recipe{Name="Pinto bean chili"},
                 //new Recipe{Name="Peanut stir-fry"},
-                new Recipe{Name="French lentils"}
+                new Recipe{Name="French lentils", ImageUrl = "~/images/frenchlentils.jpg"}
             };
 
             context.Recipes.AddRange(recipes);
