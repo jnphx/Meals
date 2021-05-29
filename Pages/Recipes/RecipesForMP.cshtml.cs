@@ -22,12 +22,13 @@ namespace WeeklyMeals.Pages.Recipes
         public List<SelectListItem> Options { get; set; }
         [BindProperty]
         public int SelectedMealPlanId { get; set; }
+        public MealPlanRecipe MealPlanRecipe { get; set; }
 
         public async Task OnGetAsync(int SelectedMealPlanId)
         {
             IQueryable<MealPlan> RecipesIQ = _context.MealPlans
-                    .Include(e => e.MealPlanRecipes)
-                    .ThenInclude(c => c.Recipe);
+                     .Include(e => e.MealPlanRecipes)
+                     .ThenInclude(c => c.Recipe);
 
             var userSettings = await _context.UserSettings.FirstOrDefaultAsync();
 
@@ -74,6 +75,24 @@ namespace WeeklyMeals.Pages.Recipes
                                             }).ToList();
 
             }
+        }
+
+        public async Task<IActionResult> OnPostAsync(int? MealPlanRecipeID)
+        {
+            if (MealPlanRecipeID == null)
+            {
+                return NotFound();
+            }
+
+            MealPlanRecipe = await _context.MealPlanRecipes.FindAsync(MealPlanRecipeID);
+
+            if (MealPlanRecipe != null)
+            {
+                _context.MealPlanRecipes.Remove(MealPlanRecipe);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage("./RecipesForMP");
         }
     }
 }

@@ -33,11 +33,18 @@
 
                         <div class="col-sm-7 d-flex flex-column align-items-start">
                             <h3 class="card-title"><a asp-page="/Recipes/Details" asp-route-ID="@recipe.Recipe.RecipeID">@recipe.Recipe.Name</a></h3>
-                            <div class="align-self-bottom" style="margin-top: auto;">
-                                <div class="form-actions no-color">
-                                    <a asp-page="/Recipes/Delete" asp-route-ID="@recipe.Recipe.RecipeID"
-                                       class="btn btn-danger m-1">Remove from Plan</a>
+                            <div class="d-flex">
+                                <div class="card-body">
+                                    @recipe.NumberBatches
+                                    <h5>Volume: @recipe.Recipe.VolumeInCups</h5>
                                 </div>
+                            </div>
+                            <div class="align-self-bottom" style="margin-top: auto;">
+                                <form method="post">
+                                    <div class="form-actions no-color">
+                                        <input type="submit" value="Remove" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="btn btn-danger" />
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

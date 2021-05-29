@@ -2,35 +2,22 @@
 @model WeeklyMeals.Pages.Recipes.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "All Recipes";
 }
 
-<h1>Index</h1>
+<h1>All Recipes</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipes[0].Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Recipes) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.RecipeID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.RecipeID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.RecipeID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="card-columns" style="column-count:3;">
+    @foreach (var recipe in Model.Recipes)
+    {
+        <div class="card">
+            <img class="card-img-top" height="200px" src="@Url.Content(@recipe.ImageUrl)" />
+            <div class="card-body">
+                <h3 class="card-title"><a asp-page="/Recipes/Details" asp-route-ID="@recipe.RecipeID">@recipe.Name</a></h3>
+                <div class="align-self-bottom" style="margin-top: auto;">
+
+                </div>
+            </div>
+        </div>
+    }
+</div>

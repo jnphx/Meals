@@ -15,6 +15,9 @@ namespace WeeklyMeals.Models
 
         public string ImageUrl { get; set; }
 
+        [Required]
+        public double VolumeInCups { get; set; }
+
         //[Required]
         public ICollection<Ingredient> Ingredients { get; set; }
 
@@ -22,5 +25,6 @@ namespace WeeklyMeals.Models
         public ICollection<Step> Steps { get; set; }
 
         public ICollection<MealPlanRecipe> MealPlanRecipes { get; set; }
+
     }
 }

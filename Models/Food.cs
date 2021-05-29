@@ -13,12 +13,19 @@ namespace WeeklyMeals.Models
         [Required]
         public string Name { get; set; }
 
-        //[Required] TODO: should foreign keys be required?
+        [Required]
+        public double CookedCupsConversion { get; set; }
+
         //Foreign key to GroceryAisle
         public int GroceryAisleID { get; set; }
 
         public GroceryAisle GroceryAisle { get; set; }
 
         public ICollection<Ingredient> Ingredients { get; set; }
+
+        public Food()
+        {
+            CookedCupsConversion = 1;
+        }
     }
 }
