@@ -23,6 +23,7 @@ namespace WeeklyMeals.Data
             var cup = new SizeType { Name = "cup" };
             var clove = new SizeType { Name = "clove" };
             var tsp = new SizeType { Name = "tsp" };
+            var bag = new SizeType { Name = "bag" };
 
             var sizeTypes = new SizeType[]
             {
@@ -33,18 +34,21 @@ namespace WeeklyMeals.Data
                 new SizeType { Name = "lb" },
                 new SizeType { Name = "can" },
                 new SizeType { Name = "each" },
-                clove
+                clove,
+                bag
             };
             context.SizeTypes.AddRange(sizeTypes);
             context.SaveChanges();
 
             var chop = new PrepType { Name = "Chop" };
             var noprep = new PrepType { Name = "No prep" };
+            var steam = new PrepType { Name = "Steam" };
 
             var prepTypes = new PrepType[]
             {
                 noprep,
                 chop,
+                steam,
                 new PrepType { Name = "Cook grains" },
                 new PrepType { Name = "Cook beans" },
                 new PrepType { Name = "Make sauce" }
@@ -56,6 +60,7 @@ namespace WeeklyMeals.Data
             var produce = new GroceryAisle { Name = "Produce" };
             var spices = new GroceryAisle { Name = "Spices" };
             var canned = new GroceryAisle { Name = "Canned goods" };
+            var frozen = new GroceryAisle { Name = "Frozen" };
 
             var groceryAisles = new GroceryAisle[]
             {
@@ -63,7 +68,7 @@ namespace WeeklyMeals.Data
                 grainsBeans,
                 new GroceryAisle { Name = "Condiments" },
                 new GroceryAisle { Name = "Plant milk" },
-                new GroceryAisle { Name = "Frozen" },
+                frozen,
                 canned,
                 spices
             };
@@ -77,6 +82,12 @@ namespace WeeklyMeals.Data
             var stock = new Food { Name = "Vegetable stock", GroceryAisle = canned };
             var cumin = new Food { Name = "Cumin seeds", GroceryAisle = spices };
             var mushrooms = new Food { Name = "Mushrooms", GroceryAisle = produce };
+            //staples
+            var frozengreenbeans = new Food { Name = "Frozen green beans", GroceryAisle = frozen, CookedCupsConversion = 3 };
+            var frozenbroc = new Food { Name = "Frozen broccoli", GroceryAisle = frozen, CookedCupsConversion = 3 };
+            var biggreens = new Food { Name = "2 lb greens", GroceryAisle = produce, CookedCupsConversion = 8 };
+            var broccolibag = new Food { Name = "Broccoli bag", GroceryAisle = produce, CookedCupsConversion = 8 };
+            var poundgreens = new Food { Name = "1 lb greens", GroceryAisle = produce, CookedCupsConversion = 6 };
 
             var foods = new Food[]
             {
@@ -86,7 +97,12 @@ namespace WeeklyMeals.Data
                 onions,
                 mushrooms,
                 stock,
-                cumin
+                cumin,
+                frozengreenbeans,
+                frozenbroc,
+                biggreens,
+                broccolibag,
+                poundgreens
             };
             context.Foods.AddRange(foods);
             context.SaveChanges();
@@ -98,6 +114,15 @@ namespace WeeklyMeals.Data
             var ingredStock = new Ingredient { Food = stock, PrepType = noprep, Size = 2, SizeType = cup };
             var ingredCumin = new Ingredient { Food = cumin, PrepType = noprep, Size = .5, SizeType = tsp };
             var ingredBasmati = new Ingredient { Food = basmati, PrepType = noprep, Size = 2, SizeType = cup };
+
+            var stapleIngreds = new Ingredient[]
+            {
+                new Ingredient { Food = biggreens, PrepType=steam, Size=1, SizeType=bag},
+                new Ingredient { Food = poundgreens, PrepType=steam, Size=1, SizeType=bag},
+                new Ingredient { Food = broccolibag, PrepType=steam, Size=1, SizeType=bag},
+                new Ingredient { Food = frozenbroc, PrepType=steam, Size=1, SizeType=bag},
+                new Ingredient { Food = frozengreenbeans, PrepType=steam, Size=1, SizeType=bag}
+            };
 
             var ingreds = new Ingredient[] {
                 ingredLentils,
@@ -145,17 +170,12 @@ namespace WeeklyMeals.Data
                 new Recipe{Name="Black bean chili", ImageUrl = "~/images/chili.jpg", VolumeInCups = 8},
                 //new Recipe{Name="Pinto bean chili"},
                 //new Recipe{Name="Peanut stir-fry"},
-                new Recipe{Name="French lentils", ImageUrl = "~/images/frenchlentils.jpg", VolumeInCups = 9}
+                new Recipe{Name="French lentils", ImageUrl = "~/images/frenchlentils.jpg", VolumeInCups = 9},
+                new Recipe{Name="Staples", Ingredients= stapleIngreds, ImageUrl="~/images/frozenveg.jpg", VolumeInCups=20}
             };
 
             context.Recipes.AddRange(recipes);
             context.SaveChanges();
-
-            //var asianRecipes = new Recipe[]
-            //{
-            //    new Recipe{Name="Pinto bean chili"},
-            //    new Recipe{Name="Peanut stir-fry"}
-            //};
 
             var mealPlans = new MealPlan[]
                 {
@@ -176,7 +196,10 @@ namespace WeeklyMeals.Data
                 new MealPlanRecipe{RecipeID=2,MealPlanID=3,NumberBatches=2},
                 new MealPlanRecipe{RecipeID=3,MealPlanID=3},
                 new MealPlanRecipe{RecipeID=3,MealPlanID=1,NumberBatches=3},
-                new MealPlanRecipe{RecipeID=3,MealPlanID=2}
+                new MealPlanRecipe{RecipeID=3,MealPlanID=2},
+                new MealPlanRecipe{RecipeID=4,MealPlanID=1},
+                new MealPlanRecipe{RecipeID=4,MealPlanID=2},
+                new MealPlanRecipe{RecipeID=4,MealPlanID=3},
             };
 
             context.MealPlanRecipes.AddRange(mealPlanRecipes);
