@@ -1,8 +1,21 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-.card-columns {
-        column-count: 1;
+.ingredients-header {
+    background-color: #ebeef0;
+    border-bottom: 0;
+}
+
+.grocery-list-component-item {
+    color: rgba(0,41,64,.7);
+}
+
+span {
+    cursor: pointer;
+}
+
+.number {
+    margin: 100px;
 }
 
 .card {
@@ -10,8 +23,14 @@ for details on configuring this project to bundle and minify static web assets. 
     background: #fff;
     //box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
     transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
-    padding: 14px 80px 18px 36px;
+    //padding: 14px 80px 18px 36px;
     cursor: pointer;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 10vw;
+    object-fit: cover;
 }
 
     .card:hover {
@@ -77,9 +96,41 @@ html {
   min-height: 100%;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-size: 14px;
+    font-family: NeuzeitGro,arial,sans-serif;
+    color: #002940;
+    font-weight: 700;
+}
+
+h3 {
+    text-transform: uppercase;
+    font-size: 1.75rem;
+}
+
+.title {
+    font-size: 28px;
+    color: #002940;
+}
+
+.recipe-title {
+    font-size: 1.125rem;
+}
+
+.recipe-additional-info {
+    font-size: 18px;
+    color: #4c6979;
+}
+
+body, button, input, select, textarea {
+    font-size: 14px;
+    color: #002940;
+    font-family: NeuzeitGro,arial,sans-serif;
+}
+
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
 .footer {
   position: absolute;

@@ -31,6 +31,9 @@ namespace WeeklyMeals.Pages.Recipes
             //Recipe = await _context.Recipes.FirstOrDefaultAsync(m => m.RecipeID == id);
             Recipe = await _context.Recipes
                .Include(s => s.Steps)
+               .Include(i => i.Ingredients).ThenInclude(s => s.SizeType)
+               .Include(i => i.Ingredients).ThenInclude(s => s.Food)
+               .Include(i => i.Ingredients).ThenInclude(s => s.PrepType)
                .AsNoTracking()
                .FirstOrDefaultAsync(m => m.RecipeID == id);
 

@@ -1,21 +1,18 @@
 ﻿@page
 @model WeeklyMeals.Pages.Recipes.IndexModel
-
 @{
     ViewData["Title"] = "All Recipes";
 }
 
-<h1>All Recipes</h1>
-
-<div class="card-columns" style="column-count:3;">
+<div class="row" style="margin-left: 100px; margin-right: 100px;">
     @foreach (var recipe in Model.Recipes)
     {
-        <div class="card">
-            <img class="card-img-top" height="200px" src="@Url.Content(@recipe.ImageUrl)" />
-            <div class="card-body">
-                <h3 class="card-title"><a asp-page="/Recipes/Details" asp-route-ID="@recipe.RecipeID">@recipe.Name</a></h3>
-                <div class="align-self-bottom" style="margin-top: auto;">
-
+        <div class="col-sm-4" style="margin-bottom:30px">
+            <div class="card">
+                <a class="card-block stretched-link text-decoration-none" asp-page="/Recipes/Details" asp-route-ID="@recipe.RecipeID"></a>
+                <img class="card-img-top" src="@Url.Content(@recipe.ImageUrl)" />
+                <div class="card-body">
+                    <div class="recipe-title">@recipe.Name</div>
                 </div>
             </div>
         </div>

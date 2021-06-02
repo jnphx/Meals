@@ -2,26 +2,26 @@
 @model WeeklyMeals.Pages.Recipes.ChooseRecipeModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Choose recipe";
 }
 
-<h1>Index</h1>
-
-<div class="card-columns" style="column-count:3;">
+<div class="row" style="margin-left: 100px; margin-right: 100px;">
     @foreach (var recipe in Model.Recipes)
     {
-        <div class="card">
-            <img class="card-img-top" height="200px" src="@Url.Content(@recipe.ImageUrl)" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">@recipe.Name</h5>
-                <form method="post">
-                    <div class="form-actions no-color">
-                        <div class="form-group">
-                            <input type="submit" value="ChooseRecipe" asp-route-RecipeID="@recipe.RecipeID" class="btn btn-primary" />
+        <div class="col-sm-4" style="margin-bottom:30px">
+            <div class="card">
+                <img class="card-img-top" src="@Url.Content(@recipe.ImageUrl)" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@recipe.Name</h5>
+                    <form method="post">
+                        <div class="form-actions no-color">
+                            <div class="form-group">
+                                <input type="submit" value="ChooseRecipe" asp-route-RecipeID="@recipe.RecipeID" class="btn btn-primary" />
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     }
-</div>      
+</div>

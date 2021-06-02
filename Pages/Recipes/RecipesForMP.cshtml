@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Meal Plan Recipes</h1>
+<h3>Meals</h3>
 
 <form asp-page="./RecipesForMP" method="get">
     <div class="form-actions no-color">
@@ -20,36 +20,26 @@
 </form>
 
 <div class="row">
-    <div class="col-sm-7 card-columns">
-        @foreach (var mealplan in Model.MealPlans)
+    <div class="col-sm-7 card-columns" style="column-count:1;">
+        @foreach (var recipe in Model.MealPlan.MealPlanRecipes)
         {
-            <h3>@mealplan.Name</h3>
+            <div class="card" style="background-color:white;">
+                <div class="row card-body">
+                    <img class="col-sm-5" height="200px" src="@Url.Content(@recipe.Recipe.ImageUrl)" />
 
-            foreach (var recipe in mealplan.MealPlanRecipes)
-            {
-                <div class="card">
-                    <div class="row card-body">
-                        <img class="col-sm-5" src="@Url.Content(@recipe.Recipe.ImageUrl)" />
-
-                        <div class="col-sm-7 d-flex flex-column align-items-start">
-                            <h3 class="card-title"><a asp-page="/Recipes/Details" asp-route-ID="@recipe.Recipe.RecipeID">@recipe.Recipe.Name</a></h3>
-                            <div class="d-flex">
-                                <div class="card-body">
-                                    @recipe.NumberBatches
-                                    <h5>Volume: @recipe.Recipe.VolumeInCups</h5>
+                    <div class="col-sm-7 d-flex flex-column align-items-start">
+                        <div class="title"><a asp-page="/Recipes/Details" asp-route-ID="@recipe.Recipe.RecipeID">@recipe.Recipe.Name</a></div>
+                        <div class="align-self-bottom" style="margin-top: auto;">
+                            <form method="post">
+                                <div class="form-actions no-color">
+                                    <div class="recipe-additional-info">Servings: @recipe.Recipe.NumberServings</div>
+                                    <input type="submit" value="Remove" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="btn btn-danger" />
                                 </div>
-                            </div>
-                            <div class="align-self-bottom" style="margin-top: auto;">
-                                <form method="post">
-                                    <div class="form-actions no-color">
-                                        <input type="submit" value="Remove" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="btn btn-danger" />
-                                    </div>
-                                </form>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-            }
+            </div>
         }
         <a asp-page="/Recipes/ChooseRecipe" class="btn btn-primary m-1">Add a new recipe</a>
     </div>

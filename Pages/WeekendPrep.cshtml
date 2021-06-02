@@ -9,47 +9,39 @@
 @{
     ViewData["Title"] = "Weekend Prep";
 }
+@functions {
 
-<h1>Weekend Prep</h1>
+    public static string FormatMeasurement(double Amount, string SizeType)
+    {
+        string numberFormat = "{0:0.0}";
+        if (Amount % 1 <= .1)
+        {
+            numberFormat = "{0:0}";
+        }
+        if (Amount > 1 && (SizeType.Equals("cup") || SizeType.Equals("bag") || SizeType.Equals("each")))
+        {
+            return string.Format(numberFormat + " {1}s", Amount, SizeType);
+        }
+        else
+        {
+            return string.Format(numberFormat + " {1}", Amount, SizeType);
+        }
+    }
+}
+
+<h3>Chopping</h3>
 
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                Food
-            </th>
-            <th>
-                Size
-            </th>
-            <th>
-                SizeType
-            </th>
-            <th>
-                Prep
-            </th>
-        </tr>
-    </thead>
     <tbody>
         @foreach (var item in Model.FoodsGroups)
         {
-        <tr>
-            <td>
-                <!-- Food name-->
-                @Html.DisplayFor(modelItem => item.FoodName)
-            </td>
-            <td>
-                <!-- Amount -->
-                @String.Format("{0:0.0}", item.TotalAmount)
-            </td>
-            <td>
-                <!-- AmountType -->
-                @Html.DisplayFor(modelItem => item.AmountType)
-            </td>
-            <td>
-                <!-- Prep way-->
-                @Html.DisplayFor(i => item.PrepType)
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @FormatMeasurement(item.TotalAmount, item.AmountType)
+                    @Html.DisplayFor(modelItem => item.FoodName),   
+                    @Html.DisplayFor(i => item.PrepType)
+                </td>
+            </tr>
         }
 
     </tbody>

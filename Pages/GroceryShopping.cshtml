@@ -6,17 +6,29 @@
 @{
     ViewData["Title"] = "Grocery List";
 }
+@functions {
 
-<h1>Grocery List</h1>
+    public static string FormatMeasurement(double Amount, string SizeType)
+    {
+        string numberFormat = "{0:0.0}";
+        if (Amount % 1 <= .1)
+        {
+            numberFormat = "{0:0}";
+        }
+        if (Amount > 1 && (SizeType.Equals("cup") || SizeType.Equals("bag") || SizeType.Equals("each")))
+        {
+            return string.Format(numberFormat + " {1}s", Amount, SizeType);
+        }
+        else
+        {
+            return string.Format(numberFormat + " {1}", Amount, SizeType);
+        }
+    }
+}
+
+<h3>Grocery List</h3>
 
 <table class="table table-hover">
-    <thead>
-        <tr>
-            <th>
-                Food
-            </th>
-        </tr>
-    </thead>
     <tbody>
         @{ string tempAisle = ""; }
         @foreach (var item in Model.FoodsGroups)
@@ -26,7 +38,7 @@
                 <tr>
                     @if (!item.AisleName.Equals(tempAisle))
                     {
-                        <td class="table-info">
+                        <td class="ingredients-header" style="text-transform: uppercase">
                             @Html.DisplayFor(modelItem => item.AisleName)
                         </td>
                         tempAisle = item.AisleName;
@@ -36,7 +48,9 @@
             <tr>
                 <td>
                     <!-- Food name-->
-                    @Html.DisplayFor(modelItem => item.FoodName), @String.Format("{0:0.0}", item.TotalAmount) @Html.DisplayFor(modelItem => item.AmountType)
+                    <div class="grocery-list-component-item">
+                        @FormatMeasurement(item.TotalAmount, item.AmountType) @Html.DisplayFor(modelItem => item.FoodName)
+                    </div>
                 </td>
             </tr>
         }

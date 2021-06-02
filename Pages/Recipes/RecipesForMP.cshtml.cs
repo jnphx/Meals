@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WeeklyMeals.Models;
+using WeeklyMeals.Models.WeeklyMealsViewModels;
 
 namespace WeeklyMeals.Pages.Recipes
 {
@@ -19,16 +20,18 @@ namespace WeeklyMeals.Pages.Recipes
         }
 
         public IList<MealPlan> MealPlans { get; set; }
+        public MealPlan MealPlan { get; set; }
         public List<SelectListItem> Options { get; set; }
         [BindProperty]
         public int SelectedMealPlanId { get; set; }
         public MealPlanRecipe MealPlanRecipe { get; set; }
+        public int MealCount;
 
         public async Task OnGetAsync(int SelectedMealPlanId)
         {
             IQueryable<MealPlan> RecipesIQ = _context.MealPlans
                      .Include(e => e.MealPlanRecipes)
-                     .ThenInclude(c => c.Recipe);
+                     .ThenInclude(c => c.Recipe);      
 
             var userSettings = await _context.UserSettings.FirstOrDefaultAsync();
 
@@ -38,13 +41,12 @@ namespace WeeklyMeals.Pages.Recipes
                 
                 if (userSettings != null)
                 {
-                    //They have selected a recipe
+                    //Read from userSettings
                     SelectedMealPlanId = userSettings.MealPlanID;
                 }
             } else
             {
                 //They selected a mealplan from the dropdown, update UserSettings.MealPlanSelection
-                
                 userSettings.MealPlanID = SelectedMealPlanId;
 
                 if (userSettings != null)
@@ -55,16 +57,18 @@ namespace WeeklyMeals.Pages.Recipes
                         s => s.MealPlanID))
                     {
                         await _context.SaveChangesAsync();
-                        //return RedirectToPage("./Index");
                     }
                 }
             }
 
             //Filter for the selected meal plan id
-            RecipesIQ = RecipesIQ.Where(mp => mp.MealPlanID == SelectedMealPlanId);
+            //RecipesIQ = RecipesIQ.FirstOrDefault(mp => mp.MealPlanID == SelectedMealPlanId);
+
+            MealPlan = RecipesIQ.FirstOrDefault(mp => mp.MealPlanID == SelectedMealPlanId);
 
             MealPlans = await RecipesIQ.AsNoTracking().ToListAsync();
 
+            //Update the options for mealplan select list
             using (var context = _context)
             {
                 Options = context.MealPlans.Select(a =>
@@ -77,6 +81,7 @@ namespace WeeklyMeals.Pages.Recipes
             }
         }
 
+        //When removing a recipe from the meal plan list
         public async Task<IActionResult> OnPostAsync(int? MealPlanRecipeID)
         {
             if (MealPlanRecipeID == null)

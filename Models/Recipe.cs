@@ -16,7 +16,7 @@ namespace WeeklyMeals.Models
         public string ImageUrl { get; set; }
 
         [Required]
-        public double VolumeInCups { get; set; }
+        public int NumberServings { get; set; }
 
         //[Required]
         public ICollection<Ingredient> Ingredients { get; set; }

@@ -21,8 +21,8 @@ namespace WeeklyMeals.Pages.MealPlans
         public async Task OnGetAsync()
         {
             var userSettings = await _context.UserSettings.FirstOrDefaultAsync();
-            //.Where(m => m.MealPlanID == userSettings.MealPlanID) - TODO - add back in when done testing
             FoodsGroups = await _context.MealPlans
+                .Where(m => m.MealPlanID == userSettings.MealPlanID)
                 .SelectMany(x => x.MealPlanRecipes)
                 .SelectMany(y => y.Recipe.Ingredients)
                 .Where(z => z.PrepTypeID != 0 && !z.PrepType.Name.Equals("No prep"))
