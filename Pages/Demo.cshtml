@@ -1,0 +1,79 @@
+﻿@page
+@model WeeklyMeals.Pages.DemoModel
+@{
+}
+<h3>DeMo</h3>
+
+
+dvPostItems: 
+    <div id="dvPostItems" style="font-size:24px; color:lightgreen;">
+        Initialized Value
+    </div>
+
+<button id="btnTestRead" class="btn btn-danger">Test Read</button>
+
+<form action="" method="Post">
+    <button id="btnTestPost" type="submit" class="btn btn-info">Test Post</button>
+</form>
+
+<form action="/Demo" method="Post">
+    <div class="form-group">
+        <div class="control-label col-md-2" style="color:sandybrown;">dvItems</div>
+        <div class="col-md-5" style="color:sandybrown;" id="dvItems"></div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+@section Scripts
+{
+    <script>
+        $('#btnTestPost').on('click', function (e) {
+            e.preventDefault();
+            var dvItems = $("#dvPostItems");
+            dvItems.empty();
+            $.ajax({
+                type: "POST",
+                url: "/Demo?handler=Farfy",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    $.each(response, function (i, item) {
+                        var $tr = $('<li>').append(item).appendTo(dvItems);
+                    });
+                    alert('success');
+                    return false;
+                },
+                failure: function (response) {
+                    alert(response);
+                }
+            });
+        });     
+
+        $('#btnTestRead').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: "/Demo?handler=List2",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    var dvItems = $("#dvItems");
+                    dvItems.empty();
+                    $.each(response, function (i, item) {
+                        var $tr = $('<li>').append(item).appendTo(dvItems);
+                    });
+                },
+                failure: function (response) {
+                    alert(response);
+                }
+            });
+        });
+    </script>
+}
