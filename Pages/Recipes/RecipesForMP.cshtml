@@ -7,6 +7,15 @@
 
 <h3>Meals</h3>
 
+<h3 class="clearfix">@Model.Message</h3>
+<div class="col-lg-1">
+    <form method="post">
+        <button class="btn btn-default" asp-page-handler="view1">View1</button>
+        <button class="btn btn-default" asp-page-handler="CheckDelete">Delete</button>
+        <input type="hidden" name="id" value="3" />
+    </form>
+</div>
+
 <form asp-page="./RecipesForMP" method="get">
     <div class="form-actions no-color">
         <p>
@@ -31,11 +40,13 @@
                         <div class="title"><a asp-page="/Recipes/Details" asp-route-ID="@recipe.Recipe.RecipeID">@recipe.Recipe.Name</a></div>
                         <div class="align-self-bottom" style="margin-top: auto;">
                             <form method="post">
-                                <div class="form-actions no-color">
-                                    <div class="recipe-additional-info">Servings: @recipe.Recipe.NumberServings</div>
-                                    <input type="submit" value="Remove" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="btn btn-danger" />
+                                <div class="number">
+                                    <input type="submit" value="--" asp-page-handler="CheckDelete" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="btn btn-danger" />
+                                    <div class="recipe-additional-info">Batches: @recipe.NumberBatches</div>
+                                    <input type="submit" value="--" asp-page-handler="CheckAdd" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="btn btn-danger" />
                                 </div>
                             </form>
+                            <div class="recipe-additional-info">Servings: @recipe.Recipe.NumberServings</div>
                         </div>
                     </div>
                 </div>
@@ -44,3 +55,32 @@
         <a asp-page="/Recipes/ChooseRecipe" class="btn btn-primary m-1">Add a new recipe</a>
     </div>
 </div>
+@section Scripts
+{
+    <script>
+        $('#minusButton').on('click', function (e) {
+            e.preventDefault(); //Prevents form refresh
+            $.ajax({
+                type: "POST",
+                url: "/Demo?handler=Farfy",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    var $input = $(this).parent().find('input');
+                    count = parseInt($input.val());
+                    if (count == 0) {
+                        DeleteMealPlanRecipeID(mp);
+                    }
+                    return false;
+                },
+                failure: function (response) {
+                    alert(response);
+                }
+            });
+        });
+    </script>
+}

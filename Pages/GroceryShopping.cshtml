@@ -15,11 +15,14 @@
         {
             numberFormat = "{0:0}";
         }
-        if (Amount > 1 && (SizeType.Equals("cup") || SizeType.Equals("bag") || SizeType.Equals("each")))
+        if (Amount > 1 && (SizeType.Equals("cup") || SizeType.Equals("bag")))
         {
             return string.Format(numberFormat + " {1}s", Amount, SizeType);
         }
-        else
+        else if (SizeType.Equals("each"))
+            {
+                return string.Format(numberFormat + " {1}s", Amount);
+            }
         {
             return string.Format(numberFormat + " {1}", Amount, SizeType);
         }

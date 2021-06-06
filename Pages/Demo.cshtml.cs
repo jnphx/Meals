@@ -11,6 +11,7 @@ namespace WeeklyMeals.Pages
     public class DemoModel : PageModel
     {
         private readonly WeeklyMealsContext _context;
+        public string Message { get; set; } = "Initial Request";
 
         public DemoModel(WeeklyMealsContext context)
         {
@@ -20,6 +21,13 @@ namespace WeeklyMeals.Pages
         public void OnGet()
         {
         }
+
+        //Handlers
+        public void OnPostView(int id)
+        {
+            Message = $"View handler fired for {id}";
+        }
+        //Handlers
 
         public JsonResult OnGetList()
         {

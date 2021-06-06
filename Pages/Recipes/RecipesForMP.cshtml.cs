@@ -13,6 +13,7 @@ namespace WeeklyMeals.Pages.Recipes
     public class RecipesForMPModel : PageModel
     {
         private readonly WeeklyMeals.Data.WeeklyMealsContext _context;
+        public string Message { get; set; } = "Initial Request";
 
         public RecipesForMPModel(WeeklyMeals.Data.WeeklyMealsContext context)
         {
@@ -31,20 +32,21 @@ namespace WeeklyMeals.Pages.Recipes
         {
             IQueryable<MealPlan> RecipesIQ = _context.MealPlans
                      .Include(e => e.MealPlanRecipes)
-                     .ThenInclude(c => c.Recipe);      
+                     .ThenInclude(c => c.Recipe);
 
             var userSettings = await _context.UserSettings.FirstOrDefaultAsync();
 
             if (SelectedMealPlanId == 0)
             {
                 //First time through, they haven't selected, get from UserSettings
-                
+
                 if (userSettings != null)
                 {
                     //Read from userSettings
                     SelectedMealPlanId = userSettings.MealPlanID;
                 }
-            } else
+            }
+            else
             {
                 //They selected a mealplan from the dropdown, update UserSettings.MealPlanSelection
                 userSettings.MealPlanID = SelectedMealPlanId;
@@ -82,7 +84,7 @@ namespace WeeklyMeals.Pages.Recipes
         }
 
         //When removing a recipe from the meal plan list
-        public async Task<IActionResult> OnPostAsync(int? MealPlanRecipeID)
+        public async Task<IActionResult> OnPostDeleteAsync(int? MealPlanRecipeID)
         {
             if (MealPlanRecipeID == null)
             {
@@ -95,6 +97,55 @@ namespace WeeklyMeals.Pages.Recipes
             {
                 _context.MealPlanRecipes.Remove(MealPlanRecipe);
                 await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage("./RecipesForMP");
+        }
+
+        public async Task<IActionResult> OnPostCheckDelete(int? MealPlanRecipeID)
+        {
+            MealPlanRecipe mpr = _context.MealPlanRecipes.Find(MealPlanRecipeID);
+
+            if (mpr != null)
+            {
+                if (mpr.NumberBatches == 1)
+                {
+                    //They want to delete this
+                    _context.MealPlanRecipes.Remove(mpr);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    //Decrement batch count
+                    --mpr.NumberBatches;
+                    if (await TryUpdateModelAsync<MealPlanRecipe>(
+                        mpr,
+                        "",
+                        s => s.NumberBatches))
+                    {
+                        await _context.SaveChangesAsync();
+                    }
+                }
+            }
+
+            return RedirectToPage("./RecipesForMP");
+        }
+
+        public async Task<IActionResult> OnPostCheckAdd(int? MealPlanRecipeID)
+        {
+            MealPlanRecipe mpr = _context.MealPlanRecipes.Find(MealPlanRecipeID);
+
+            if (mpr != null)
+            {
+                //Increment batch count
+                ++mpr.NumberBatches;
+                if (await TryUpdateModelAsync<MealPlanRecipe>(
+                    mpr,
+                    "",
+                    s => s.NumberBatches))
+                {
+                    await _context.SaveChangesAsync();
+                }
             }
 
             return RedirectToPage("./RecipesForMP");
