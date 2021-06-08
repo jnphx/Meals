@@ -21,7 +21,7 @@
         }
         else if (SizeType.Equals("each"))
             {
-                return string.Format(numberFormat + " {1}s", Amount);
+                return string.Format(numberFormat + " {0}s", Amount);
             }
         {
             return string.Format(numberFormat + " {1}", Amount, SizeType);

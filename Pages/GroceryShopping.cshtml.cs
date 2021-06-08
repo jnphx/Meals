@@ -1,12 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using WeeklyMeals.Models;
 using WeeklyMeals.Models.WeeklyMealsViewModels;
 
 namespace WeeklyMeals.Pages
@@ -19,21 +15,36 @@ namespace WeeklyMeals.Pages
         {
             _context = context;
         }
-        
+
         public List<FoodsGroup> FoodsGroups { get; set; }
 
         public async Task OnGetAsync()
         {
             var userSettings = await _context.UserSettings.FirstOrDefaultAsync();
-            FoodsGroups = await _context.MealPlans
-                .Where(m => m.MealPlanID == userSettings.MealPlanID)
-                .SelectMany(x => x.MealPlanRecipes)
-                .SelectMany(y => y.Recipe.Ingredients)
-                .OrderBy(x => x.Food.GroceryAisle.Name)
-                .ThenBy(x => x.Food.Name)
-                .GroupBy(x => new {Aisle = x.Food.GroceryAisle.Name, Food = x.Food.Name, MsType = x.SizeType.Name})
-                .Select(x => new FoodsGroup { AisleName = x.Key.Aisle, FoodName = x.Key.Food, AmountType = x.Key.MsType, TotalAmount = x.Sum(y => y.Size)})
-                .ToListAsync();
+
+            var groceryList = from m in _context.MealPlans
+                              join mpr in _context.MealPlanRecipes on m.MealPlanID equals mpr.MealPlanID
+                              join r in _context.Recipes on mpr.RecipeID equals r.RecipeID
+                              join i in _context.Ingredients on r.RecipeID equals i.Recipe.RecipeID
+                              where m.MealPlanID == userSettings.MealPlanID
+                              group i by new
+                              {
+                                  AisleName = i.Food.GroceryAisle.Name,
+                                  FoodName = i.Food.Name,
+                                  AmountType = i.SizeType.Name,
+                                  TotalAmount = i.Size * mpr.NumberBatches
+                              } into g
+                              select new FoodsGroup
+                              {
+                                  AisleName = g.Key.AisleName,
+                                  FoodName = g.Key.FoodName,
+                                  AmountType = g.Key.AmountType,
+                                  TotalAmount = g.Sum(g.Key.TotalAmount)
+                              } into fg
+                              orderby fg.AisleName, fg.FoodName
+                              select fg;
+
+            FoodsGroups = groceryList.ToList();
         }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WeeklyMeals.Data;
 using WeeklyMeals.Models;
 using WeeklyMeals.Models.WeeklyMealsViewModels;
 
@@ -100,6 +101,14 @@ namespace WeeklyMeals.Pages.Recipes
             }
 
             return RedirectToPage("./RecipesForMP");
+        }
+
+        public void OnPostCheckDeleteAjax()
+        {
+            int MealPlanRecipeID = 4;
+            MealPlanRecipe mpr = _context.MealPlanRecipes.Find(MealPlanRecipeID);
+            var repo = new DemoRepo(_context);
+            repo.CheckDelete(MealPlanRecipeID);
         }
 
         public async Task<IActionResult> OnPostCheckDelete(int? MealPlanRecipeID)

@@ -12,7 +12,7 @@ namespace WeeklyMeals.Models
         public int MealPlanID { get; set; }
         public int RecipeID { get; set; }
         [Required]
-        public int NumberBatches { get; set; }
+        public double NumberBatches { get; set; }
 
         public MealPlan MealPlan { get; set; }
         public Recipe Recipe { get; set; }

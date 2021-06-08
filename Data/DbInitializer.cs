@@ -124,6 +124,7 @@ namespace WeeklyMeals.Data
 
             var ingredLentils = new Ingredient { Food = lentils, PrepType = noprep, Size = 0.5, SizeType = cup };
             var ingredOnions = new Ingredient { Food = onions, PrepType = chop, Size = 0.5, SizeType = cup };
+            var ingredOnions1 = new Ingredient { Food = onions, PrepType = chop, Size = 0.5, SizeType = cup };
             var ingredMushrooms = new Ingredient { Food = mushrooms, PrepType = chop, Size = 2, SizeType = cup };
             var ingredGarlic = new Ingredient { Food = garlic, PrepType = chop, Size = 1, SizeType = clove };
             var ingredStock = new Ingredient { Food = stock, PrepType = noprep, Size = 2, SizeType = cup };
@@ -131,6 +132,8 @@ namespace WeeklyMeals.Data
             var ingredBasmati = new Ingredient { Food = basmati, PrepType = noprep, Size = 2, SizeType = cup };
             var ingredBlackBeans = new Ingredient { Food = canBlackBeans, PrepType = noprep, Size = 1, SizeType = can };
             var ingredCanTomatoes = new Ingredient { Food = canTomatoes, PrepType = noprep, Size = 1, SizeType = can };
+            var ingredBlackBeans1 = new Ingredient { Food = canBlackBeans, PrepType = noprep, Size = 1, SizeType = can };
+            var ingredCanTomatoes1 = new Ingredient { Food = canTomatoes, PrepType = noprep, Size = 1, SizeType = can };
             var ingredPeppers = new Ingredient { Food = greenPeppers, PrepType = chop, Size = 1, SizeType = each };
             var ingredFrozenPeppers = new Ingredient { Food = frozenPeppers, PrepType = noprep, Size = 1, SizeType = bag };
             var ingredChiliCumin = new Ingredient { Food = cumin, PrepType = noprep, Size = 2, SizeType = tsp };
@@ -165,8 +168,8 @@ namespace WeeklyMeals.Data
 
             var chiliIngreds = new Ingredient[]
             {
-                ingredBlackBeans,
-                ingredCanTomatoes,
+                ingredBlackBeans1,
+                ingredCanTomatoes1,
                 ingredOnions,
                 ingredPeppers,
                 ingredChiliCumin,
@@ -175,7 +178,7 @@ namespace WeeklyMeals.Data
             };
             var lentilRiceIngreds = new Ingredient[] {
                 ingredLentils,
-                ingredOnions,
+                ingredOnions1,
                 ingredGarlic,
                 ingredMushrooms,
                 ingredStock,
@@ -214,7 +217,7 @@ namespace WeeklyMeals.Data
             var recipes = new Recipe[]
             {
                 new Recipe{Name="Lentils & Rice", Steps = steps, Ingredients = lentilRiceIngreds, ImageUrl = "~/images/lentilsandrice.jpg", NumberServings = 10},
-                new Recipe{Name="Black bean chili", ImageUrl = "~/images/chili.jpg", NumberServings = 8},
+                new Recipe{Name="Black bean chili", Ingredients = chiliIngreds, ImageUrl = "~/images/chili.jpg", NumberServings = 8},
                 //new Recipe{Name="Pinto bean chili"},
                 //new Recipe{Name="Peanut stir-fry"},
                 new Recipe{Name="French lentils", ImageUrl = "~/images/frenchlentils.jpg", NumberServings = 9},

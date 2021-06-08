@@ -13,5 +13,7 @@ namespace WeeklyMeals.Models.WeeklyMealsViewModels
         public string AmountType;
 
         public string PrepType;
+
+        public int NumberBatches;
     }
 }
