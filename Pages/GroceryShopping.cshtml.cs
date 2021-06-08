@@ -27,19 +27,18 @@ namespace WeeklyMeals.Pages
                               join r in _context.Recipes on mpr.RecipeID equals r.RecipeID
                               join i in _context.Ingredients on r.RecipeID equals i.Recipe.RecipeID
                               where m.MealPlanID == userSettings.MealPlanID
-                              group i by new
+                              group new { i, mpr } by new
                               {
                                   AisleName = i.Food.GroceryAisle.Name,
                                   FoodName = i.Food.Name,
                                   AmountType = i.SizeType.Name,
-                                  TotalAmount = i.Size * mpr.NumberBatches
                               } into g
                               select new FoodsGroup
                               {
                                   AisleName = g.Key.AisleName,
                                   FoodName = g.Key.FoodName,
                                   AmountType = g.Key.AmountType,
-                                  TotalAmount = g.Sum(g.Key.TotalAmount)
+                                  TotalAmount = g.Sum(z => z.i.Size * z.mpr.NumberBatches)
                               } into fg
                               orderby fg.AisleName, fg.FoodName
                               select fg;
