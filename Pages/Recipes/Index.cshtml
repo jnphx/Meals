@@ -4,6 +4,11 @@
     ViewData["Title"] = "All Recipes";
 }
 
+<!--<a asp-page="/Recipes/Create">
+    <input type="button" value="Add Recipe" />
+</a>-->
+<a asp-page="/Recipes/Create" class="btn"><i class="fa fa-plus"></i> Add Recipe</a>
+
 <div class="row" style="margin-left: 100px; margin-right: 100px;">
     @foreach (var recipe in Model.Recipes)
     {

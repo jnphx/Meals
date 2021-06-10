@@ -6,6 +6,24 @@ for details on configuring this project to bundle and minify static web assets. 
     border-bottom: 0;
 }
 
+/* button test */
+/* Style buttons */
+
+.btn {
+    background-color: DodgerBlue; /* Blue background */
+    /*border: none;  Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+    background-color: RoyalBlue;
+}
+/*button test*/
+
 /* Number plus-minus */
 span {
     cursor: pointer;
