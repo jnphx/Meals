@@ -19,7 +19,7 @@
     </div>
 </form>
 
-<div class="row">
+<div style="background-color:#f2f2f2;" class="row">
     <div class="col-sm-7 card-columns" style="column-count:1;">
         @foreach (var recipe in Model.MealPlan.MealPlanRecipes)
         {
@@ -28,7 +28,7 @@
                     <img class="col-sm-5" height="200px" src="@Url.Content(@recipe.Recipe.ImageUrl)" />
 
                     <div class="col-sm-7 d-flex flex-column align-items-start">
-                        <div class="title"><a asp-page="/Recipes/Details" asp-route-ID="@recipe.Recipe.RecipeID">@recipe.Recipe.Name</a></div>
+                        <a class="title" asp-page="/Recipes/Details" asp-route-ID="@recipe.Recipe.RecipeID">@recipe.Recipe.Name</a>
                         <div class="align-self-bottom" style="margin-top: auto;">
                             <div class="recipe-additional-info">Servings: @recipe.Recipe.NumberServings</div>
                         </div>
