@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h3>Meals</h3>
+<h3 style="padding-top: 58px;">Meals</h3>
 
 <form asp-page="./RecipesForMP" method="get">
     <div class="form-actions no-color">
@@ -30,14 +30,6 @@
                     <div class="col-sm-7 d-flex flex-column align-items-start">
                         <div class="title"><a asp-page="/Recipes/Details" asp-route-ID="@recipe.Recipe.RecipeID">@recipe.Recipe.Name</a></div>
                         <div class="align-self-bottom" style="margin-top: auto;">
-                            <form method="post">
-                                <div class="number">
-                                    <input type="submit" value="-" asp-page-handler="CheckDelete" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="btn btn-danger" />
-                                    <!--<input id="minusbutton" type="submit" value ="Test" class="btn btn-danger"/>-->
-                                    <div class="recipe-additional-info">Batches: @recipe.NumberBatches</div>
-                                    <input type="submit" value="+" asp-page-handler="CheckAdd" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="btn btn-danger" />
-                                </div>
-                            </form>
                             <div class="recipe-additional-info">Servings: @recipe.Recipe.NumberServings</div>
                         </div>
                     </div>

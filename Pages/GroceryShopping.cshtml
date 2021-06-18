@@ -20,16 +20,16 @@
             return string.Format(numberFormat + " {1}s", Amount, SizeType);
         }
         else if (SizeType.Equals("each"))
-            {
-                return string.Format(numberFormat + " {0}s", Amount);
-            }
+        {
+            return string.Format(numberFormat + " {0}s", Amount);
+        }
         {
             return string.Format(numberFormat + " {1}", Amount, SizeType);
         }
     }
 }
 
-<h3>Grocery List</h3>
+<h3 style="padding-top: 58px;">Grocery List</h3>
 
 <table class="table table-hover">
     <tbody>
@@ -41,8 +41,10 @@
                 <tr>
                     @if (!item.AisleName.Equals(tempAisle))
                     {
-                        <td class="ingredients-header" style="text-transform: uppercase">
-                            @Html.DisplayFor(modelItem => item.AisleName)
+                        <td>
+                            <header class="ingredients-header px-2 py-2" style="text-transform: uppercase">
+                                <span class="title h4">@Html.DisplayFor(modelItem => item.AisleName)</span>
+                            </header>
                         </td>
                         tempAisle = item.AisleName;
                     }
