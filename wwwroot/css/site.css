@@ -63,8 +63,18 @@ a {
  */
 .btn-primary {
     color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    background-color: #df4661;
+    border: 0px;
+}
+
+.btn {
+    font-family: Overpass,Arial,Tahoma,sans-serif;
+    font-weight: 600;
+    border-radius: 0;
+}
+
+.btn-primary:hover {
+    background-color:#d43551;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -111,8 +121,8 @@ html {
 
 h1, h2, h3, h4, h5, h6 {
     font-size: 14px;
-    font-family: NeuzeitGro,arial,sans-serif;
-    color: #002940;
+    font-family: Overpass,Arial,Tahoma,sans-serif;
+    color: #5cb8b2;
     font-weight: 700;
 }
 
@@ -140,7 +150,7 @@ a {
 }
 
 .title:hover {
-    color: #01839a;
+    color: #d43551;
     text-decoration: none;
 }
 
@@ -149,8 +159,9 @@ a {
 }
 
 .recipe-additional-info {
-    font-size: 18px;
-    color: #4c6979;
+    font-size: 1.125rem;
+    font-family: Overpass,Arial,Tahoma,sans-serif;
+    color: #828282;
 }
 
 body, button, input, select, textarea {

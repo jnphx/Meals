@@ -5,38 +5,34 @@
     ViewData["Title"] = "Index";
 }
 
-<h3 style="padding-top: 58px;">Meals</h3>
+<div class="row" style="padding-left: 40px; padding-top: 58px;">
+    <form asp-page="./RecipesForMP" method="get">
+        <div class="form-actions no-color">
+            <p>
+                <select asp-for="SelectedMealPlanId" asp-items="Model.Options">
+                    <option value="">Pick your meal plan</option>
+                </select>
+                <input type="submit" value="Select" class="btn btn-primary" />
+            </p>
+        </div>
+    </form>
 
-<form asp-page="./RecipesForMP" method="get">
-    <div class="form-actions no-color">
-        <p>
-            Choose meal plan:
-            <select asp-for="SelectedMealPlanId" asp-items="Model.Options">
-                <option value="">Pick your meal plan</option>
-            </select>
-            <input type="submit" value="Search" class="btn btn-primary" />
-        </p>
-    </div>
-</form>
-
-<div style="background-color:#f2f2f2;" class="row">
-    <div class="col-sm-7 card-columns" style="column-count:1;">
-        @foreach (var recipe in Model.MealPlan.MealPlanRecipes)
-        {
-            <div class="card" style="background-color:white;">
-                <div class="row card-body">
-                    <img class="col-sm-5" height="200px" src="@Url.Content(@recipe.Recipe.ImageUrl)" />
-
-                    <div class="col-sm-7 d-flex flex-column align-items-start">
-                        <a class="title" asp-page="/Recipes/Details" asp-route-ID="@recipe.Recipe.RecipeID">@recipe.Recipe.Name</a>
-                        <div class="align-self-bottom" style="margin-top: auto;">
-                            <div class="recipe-additional-info">Servings: @recipe.Recipe.NumberServings</div>
+    <div style="background-color:#f2f2f2;" class="row">
+        <div class="card-columns">
+            @foreach (var recipe in Model.MealPlan.MealPlanRecipes)
+            {
+                <div class="card" style="background-color:white;">
+                    <div class="row card-body">
+                        <div class="card-body">
+                            <a class="title" asp-page="/Recipes/Details" asp-route-ID="@recipe.Recipe.RecipeID">@recipe.Recipe.Name</a>
+                            <div class="recipe-additional-info">#Servings: @recipe.Recipe.NumberServings</div>
                         </div>
+                        <img class="card-img-bottom" src="@Url.Content(@recipe.Recipe.ImageUrl)" />
                     </div>
                 </div>
-            </div>
-        }
-        <a asp-page="/Recipes/ChooseRecipe" class="btn btn-primary m-1">Add a new recipe</a>
+            }
+            <a asp-page="/Recipes/ChooseRecipe" class="btn btn-primary m-1">Add a new recipe</a>
+        </div>
     </div>
 </div>
 @section Scripts
