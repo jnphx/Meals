@@ -28,36 +28,48 @@
         }
     }
 }
+<div style="padding-left:40px; background-color:white;">
 
-<h3 style="padding-top: 58px;">Grocery List</h3>
+    <h3>Grocery List</h3>
 
-<table class="table table-hover">
-    <tbody>
-        @{ string tempAisle = ""; }
-        @foreach (var item in Model.FoodsGroups)
-        {
-            if (!item.AisleName.Equals(tempAisle))
+    <table class="table table-borderless">
+        <tbody>
+            @{ string tempAisle = ""; int ingredCounter = 1; string temp = ""; }
+            @foreach (var item in Model.FoodsGroups)
             {
-                <tr>
-                    @if (!item.AisleName.Equals(tempAisle))
-                    {
-                        <td>
-                            <header class="ingredients-header px-2 py-2" style="text-transform: uppercase">
-                                <span class="title h4">@Html.DisplayFor(modelItem => item.AisleName)</span>
-                            </header>
-                        </td>
-                        tempAisle = item.AisleName;
-                    }
-                </tr>
+                if (!item.AisleName.Equals(tempAisle))
+                {
+                    <tr>
+                        @if (!item.AisleName.Equals(tempAisle))
+                        {
+                            ingredCounter = 1;
+                            <td>
+                                <header class="ingredients-header px-2 py-2" style="text-transform: uppercase">
+                                    @Html.DisplayFor(modelItem => item.AisleName)
+                                </header>
+                            </td>
+                            tempAisle = item.AisleName;
+                        }
+                    </tr>
+                }
+        <tr>
+            <!-- Food name-->
+            @if (ingredCounter % 2 == 1)
+            {
+                temp = "tr-odd";
             }
-            <tr>
-                <td>
-                    <!-- Food name-->
-                    <div class="grocery-list-component-item">
-                        @FormatMeasurement(item.TotalAmount, item.AmountType) @Html.DisplayFor(modelItem => item.FoodName)
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+            else
+            {
+                temp = "";
+            }
+            <td class=@temp>
+                <div class="grocery-list-component-item">
+                    @FormatMeasurement(item.TotalAmount, item.AmountType) @Html.DisplayFor(modelItem => item.FoodName)
+                </div>
+            </td>
+        </tr>
+                ingredCounter++;
+            }
+                </tbody>
+            </table>
+        </div>

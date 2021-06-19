@@ -23,30 +23,52 @@
             return string.Format(numberFormat + " {1}s", Amount, SizeType);
         }
         else if (SizeType.Equals("each"))
-            {
-                return string.Format(numberFormat + " {0}s", Amount);
-            }
+        {
+            return string.Format(numberFormat + " {0}s", Amount);
+        }
         {
             return string.Format(numberFormat + " {1}", Amount, SizeType);
         }
     }
 }
 
-<h3 style="padding-top: 58px;">Chopping</h3>
+<div style="padding-left: 40px; background-color: white;">
 
-<table class="table">
-    <tbody>
-        @foreach (var item in Model.FoodsGroups)
-        {
+    <h3>Prep</h3>
+
+    @{ int ingredCounter = 0; string temp = ""; }
+    <table class="table table-borderless">
+        <tbody>
             <tr>
                 <td>
-                    @FormatMeasurement(item.TotalAmount, item.AmountType)
-                    @Html.DisplayFor(modelItem => item.FoodName),   
-                    @Html.DisplayFor(i => item.PrepType)
+                    <header class="ingredients-header px-2 py-2" style="text-transform: uppercase">
+                        Chop
+                    </header>
                 </td>
             </tr>
-        }
+            @foreach (var item in Model.FoodsGroups)
+            {
+                <tr>
+                    @if (ingredCounter % 2 == 1)
+                    {
+                        temp = "tr-odd";
+                    }
+                    else
+                    {
+                        temp = "";
+                    }
+                    <td class=@temp>
+                        <div class="grocery-list-component-item">
+                            @FormatMeasurement(item.TotalAmount, item.AmountType)
+                            @Html.DisplayFor(modelItem => item.FoodName),
+                            @Html.DisplayFor(i => item.PrepType)
+                        </div>
+                    </td>
+                </tr>
+                ingredCounter++;
+            }
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
+</div>

@@ -216,12 +216,12 @@ namespace WeeklyMeals.Data
 
             var recipes = new Recipe[]
             {
-                new Recipe{Name="Lentils & Rice", Steps = steps, Ingredients = lentilRiceIngreds, ImageUrl = "~/images/lentilsandrice.jpg", NumberServings = 10},
+                new Recipe{Name="Lentils & Rice", Steps = steps, Ingredients = lentilRiceIngreds, ImageUrl = "~/images/lentilsandrice.jpg", NumberServings = 6},
                 new Recipe{Name="Black bean chili", Ingredients = chiliIngreds, ImageUrl = "~/images/chili.jpg", NumberServings = 8},
                 //new Recipe{Name="Pinto bean chili"},
                 //new Recipe{Name="Peanut stir-fry"},
-                new Recipe{Name="French lentils", ImageUrl = "~/images/frenchlentils.jpg", NumberServings = 9},
-                new Recipe{Name="SNAP-Mexican", Ingredients= snapIngreds, ImageUrl="~/images/frozenveg.jpg", NumberServings=10}
+                new Recipe{Name="French lentils", ImageUrl = "~/images/frenchlentils.jpg", NumberServings = 8},
+                new Recipe{Name="SNAP-Mexican", Ingredients= snapIngreds, ImageUrl="~/images/frozenveg.jpg", NumberServings=4}
             };
 
             context.Recipes.AddRange(recipes);
