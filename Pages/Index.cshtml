@@ -4,27 +4,23 @@
 @{
     ViewData["Title"] = "Meal Plans";
 }
-<div style="padding-left:40px;">
-    <p>@Model.TotalServings</p>
-
-    <div class="dropdown">
-        <button class="dropbtn">@Model.CurrentPlanName</button>
-        <div class="dropdown-content">
-            @foreach (var opt in Model.Options)
-            {
-                <a href="@opt.Value">@opt.Text</a>
-            }
-        </div>
-    </div>
+<div style="padding-left:40px; background-color: white;" class="pt-4">
 
     <form asp-page="./RecipesForMP" method="get">
-        <div class="form-actions no-color">
-            <p>
-                <select asp-for="SelectedMealPlanId" asp-items="Model.Options">
-                    <option value="">Pick your meal plan</option>
-                </select>
-                <input type="submit" value="Select" class="btn btn-primary" />
-            </p>
+        <div class="form-inline no-color">
+            <select asp-for="SelectedMealPlanId" asp-items="Model.Options">
+                <option value="">Pick your meal plan</option>
+            </select>
+            <input type="submit" style="margin-left: 2px; color: #5cb8b2;" value="Select" />
+            <div style="margin-left: 150px;" class="text-location">
+                <div class="tbsmall">MEAL PLAN</div>
+                <div class="title">@Model.CurrentPlanName</div>
+            </div>
+            <span class="totalservings">@Model.TotalServings</span>
+            <div class="tbsmall" style="margin-left: 4px;">SERVINGS</div>
+            <span style="margin-left: 340px;">
+                <a asp-page="/Recipes/ChooseRecipe" class="btn btn-primary m-1">Add a new recipe</a>
+            </span>
         </div>
     </form>
 
@@ -38,7 +34,12 @@
                             <div class="card-body">
                                 <a class="title" asp-page="/Recipes/Details" asp-route-ID="@recipe.Recipe.RecipeID">@recipe.Recipe.Name</a>
                                 <div class="recipe-additional-info">#Servings: @recipe.Recipe.NumberServings</div>
-                                <div class="recipe-additional-info">#Batches: @recipe.NumberBatches</div>
+                                <form method="post">
+                                    <span class="recipe-additional-info">#Batches: </span>
+                                    <input type="submit" value="-" asp-page-handler="CheckDelete" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="minus" />
+                                    <span class="plusminusinput">@recipe.NumberBatches</span>
+                                    <input type="submit" value="+" asp-page-handler="CheckAdd" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="plus" />
+                                </form>
                                 @if (recipe.PercentForYou < 1)
                                 {
                                     <div class="recipe-additional-info">Percent for you: @string.Format("{0:0}%", recipe.PercentForYou * 100)</div>
@@ -48,7 +49,6 @@
                         </div>
                     }
                 </div>
-                <a asp-page="/Recipes/ChooseRecipe" class="btn btn-primary m-1">Add a new recipe</a>
             </div>
         </div>
     </div>

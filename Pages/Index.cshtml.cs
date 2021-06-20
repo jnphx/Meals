@@ -24,6 +24,7 @@ namespace WeeklyMeals.Pages.Recipes
 
         public IList<MealPlan> MealPlans { get; set; }
         public MealPlan MealPlan { get; set; }
+        [BindProperty]
         public List<SelectListItem> Options { get; set; }
         [BindProperty]
         public int SelectedMealPlanId { get; set; }
@@ -87,12 +88,16 @@ namespace WeeklyMeals.Pages.Recipes
             //Update the options for mealplan select list
             using (var context = _context)
             {
+                //SelectList list = new SelectList([...my collection...], "Value", "Key", SelectedID);
+                
                 Options = context.MealPlans.Select(a =>
                                             new SelectListItem
                                             {
                                                 Value = a.MealPlanID.ToString(),
-                                                Text = a.Name
-                                            }).ToList();
+                                                Text = a.Name,
+                                                Selected = (a.MealPlanID == SelectedMealPlanId)
+                                            }
+                                            ).ToList();
 
             }
 
@@ -151,7 +156,7 @@ namespace WeeklyMeals.Pages.Recipes
                 }
             }
 
-            return RedirectToPage("./RecipesForMP");
+            return RedirectToPage("./Index");
         }
 
         public async Task<IActionResult> OnPostCheckAdd(int? MealPlanRecipeID)
@@ -171,7 +176,7 @@ namespace WeeklyMeals.Pages.Recipes
                 }
             }
 
-            return RedirectToPage("./RecipesForMP");
+            return RedirectToPage("./Index");
         }
     }
 }

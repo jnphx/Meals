@@ -16,6 +16,23 @@ namespace WeeklyMeals.Data
             _context = context;
         }
 
+        public double GetNumberMeals()
+        {
+            //Use linq to sum MealPlanRecipes.NumServings * MealPlanRecipes.PercentForMe
+            var mealPlanServings = (from m in _context.MealPlans
+                                    join mpr in _context.MealPlanRecipes on m.MealPlanID equals mpr.MealPlanID
+                                    join r in _context.Recipes on mpr.RecipeID equals r.RecipeID
+                                    join u in _context.UserSettings on m.MealPlanID equals u.MealPlanID
+                                    select new
+                                    {
+                                        r.NumberServings,
+                                        mpr.NumberBatches,
+                                        mpr.PercentForYou
+                                    }).ToList();
+
+            return mealPlanServings.Select(g => g.NumberBatches * g.NumberServings * g.PercentForYou).Sum();
+        }
+
         public void CheckDelete(int MealPlanRecipeID)
         {
             MealPlanRecipe mpr = _context.MealPlanRecipes.Find(MealPlanRecipeID);

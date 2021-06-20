@@ -38,7 +38,7 @@ namespace WeeklyMeals.Pages.Recipes
             _context.MealPlanRecipes.Add(mpr);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("../Recipes/RecipesForMP");
+            return RedirectToPage("/Index");
         }
     }
 }
