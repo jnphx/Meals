@@ -12,11 +12,22 @@
             <div class="card">
                 <img class="card-img-top" src="@Url.Content(@recipe.ImageUrl)" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">@recipe.Name</h5>
+                    <h5 class="card-title">@recipe.RecipeName</h5>
                     <form method="post">
                         <div class="form-actions no-color">
                             <div class="form-group">
-                                <input type="submit" value="ChooseRecipe" asp-route-RecipeID="@recipe.RecipeID" class="btn btn-primary" />
+                                @if (recipe.MealPlanRecipeID == 0)
+                                {
+                                    <input type="submit" value="Add to Meal Plan" asp-route-RecipeID="@recipe.RecipeID" class="btn btn-primary" />
+                                }
+                                else
+                                {
+                                        <span class="recipe-additional-info">#Batches: </span>
+                                        <input type="submit" value="-" asp-page-handler="CheckDelete" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="minus" />
+                                        <span class="plusminusinput">@recipe.NumberBatches</span>
+                                        <input type="submit" value="+" asp-page-handler="CheckAdd" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="plus" />
+                                }
+
                             </div>
                         </div>
                     </form>
