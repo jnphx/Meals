@@ -35,6 +35,10 @@ namespace WeeklyMeals.Pages.Recipes
                 return Page();
             }
 
+            if (Recipe.ImageUrl == "" )
+            {
+                Recipe.ImageUrl = "~/images/norecipe.jpg";
+            }
             _context.Recipes.Add(Recipe);
             await _context.SaveChangesAsync();
 

@@ -34,7 +34,6 @@ namespace WeeklyMeals.Data
                 tsp,
                 new SizeType { Name = "ou" },
                 new SizeType { Name = "lb" },
-                new SizeType { Name = "can" },
                 clove,
                 bag,
                 can,
@@ -46,13 +45,15 @@ namespace WeeklyMeals.Data
             var chop = new PrepType { Name = "chop" };
             var noprep = new PrepType { Name = "No prep" };
             var steam = new PrepType { Name = "steam" };
+            var precook = new PrepType { Name = "cook grains" };
+            var drain = new PrepType { Name = "drain and rinse" };
 
             var prepTypes = new PrepType[]
             {
                 noprep,
                 chop,
                 steam,
-                new PrepType { Name = "cook grains" },
+                precook,
                 new PrepType { Name = "cook beans" },
                 new PrepType { Name = "make sauce" }
             };
@@ -92,10 +93,16 @@ namespace WeeklyMeals.Data
             var broccolibag = new Food { Name = "broccoli", GroceryAisle = produce, CookedCupsConversion = 8 };
             var poundgreens = new Food { Name = "1 lb greens", GroceryAisle = produce, CookedCupsConversion = 6 };
             var frozenPeppers = new Food { Name = "12 oz frozen pepper/onion", GroceryAisle = frozen, CookedCupsConversion = 3 };
+            var frozenCauliflower = new Food { Name = "12 oz frozen cauliflower", GroceryAisle = frozen, CookedCupsConversion = 3 };
+            var frozenVeg = new Food { Name = "12 oz frozen frozen veg", GroceryAisle = frozen, CookedCupsConversion = 3 };
+            var anyGrain = new Food { Name = "grains", GroceryAisle = grainsBeans, CookedCupsConversion = 3 };
+            var anyBeans = new Food { Name = "beans", GroceryAisle = grainsBeans, CookedCupsConversion = 3 };
+            var frozenPeas = new Food { Name = "12 oz frozen peas", GroceryAisle = frozen, CookedCupsConversion = 3 };
             var canTomatoes = new Food { Name = "16 ou tomatoes", GroceryAisle = canned, CookedCupsConversion = 2 };
             var canBlackBeans = new Food { Name = "black beans", GroceryAisle = canned, CookedCupsConversion = 2 };
             var greenPeppers = new Food { Name = "green pepper", GroceryAisle = produce };
             var chiliPowder = new Food { Name = "chili powder", GroceryAisle = spices };
+            var curry = new Food { Name = "curry powder", GroceryAisle = spices };
             var coriander = new Food { Name = "coriander", GroceryAisle = spices };
 
             var foods = new Food[]
@@ -134,19 +141,43 @@ namespace WeeklyMeals.Data
             var ingredCanTomatoes = new Ingredient { Food = canTomatoes, PrepType = noprep, Size = 1, SizeType = can };
             var ingredBlackBeans1 = new Ingredient { Food = canBlackBeans, PrepType = noprep, Size = 1, SizeType = can };
             var ingredCanTomatoes1 = new Ingredient { Food = canTomatoes, PrepType = noprep, Size = 1, SizeType = can };
+            var ingredCanTomatoes2 = new Ingredient { Food = canTomatoes, PrepType = noprep, Size = 1, SizeType = can };
             var ingredPeppers = new Ingredient { Food = greenPeppers, PrepType = chop, Size = 1, SizeType = each };
             var ingredFrozenPeppers = new Ingredient { Food = frozenPeppers, PrepType = noprep, Size = 1, SizeType = bag };
+            var ingredFrozenCauliflower = new Ingredient { Food = frozenCauliflower, PrepType = noprep, Size = 1, SizeType = bag };
+            var ingredAnyFrozenVeg = new Ingredient { Food = frozenVeg, PrepType = noprep, Size = 1.5, SizeType = cup };
+            var ingredAnyGrain = new Ingredient { Food = anyGrain, PrepType = precook, Size = 1, SizeType = cup };
+            var ingredAnyBeans = new Ingredient { Food = anyBeans, PrepType = drain, Size = .5, SizeType = can };
+            var ingredFrozenPeas = new Ingredient { Food = frozenPeas, PrepType = noprep, Size = .25, SizeType = cup };
             var ingredChiliCumin = new Ingredient { Food = cumin, PrepType = noprep, Size = 2, SizeType = tsp };
             var ingredChilipowder = new Ingredient { Food = chiliPowder, PrepType = noprep, Size = 4, SizeType = tsp };
+            var ingredChilipowder1 = new Ingredient { Food = chiliPowder, PrepType = noprep, Size = 2, SizeType = tsp };
+            var ingredCurry = new Ingredient { Food = curry, PrepType = noprep, Size = 1, SizeType = tsp };
             var ingredCoriander = new Ingredient { Food = coriander, PrepType = noprep, Size = .5, SizeType = tsp };
 
             var snapIngreds = new Ingredient[]
             {
                 ingredCanTomatoes,
                 ingredFrozenPeppers,
-                ingredBlackBeans
+                ingredBlackBeans,
+                ingredChilipowder1
             };
 
+            var snapIndianIngreds = new Ingredient[]
+            {
+                ingredCanTomatoes2,
+                ingredFrozenCauliflower,
+                ingredFrozenPeas,
+                ingredCurry
+            };
+
+            var snapBowlIngreds = new Ingredient[]
+            {
+                ingredAnyFrozenVeg,
+                ingredAnyGrain,
+                ingredAnyBeans
+            };
+/*
             var ingreds = new Ingredient[] {
                 ingredLentils,
                 ingredOnions,
@@ -156,16 +187,13 @@ namespace WeeklyMeals.Data
                 ingredCumin,
                 ingredBasmati,
                 ingredBlackBeans,
-                ingredCanTomatoes,
-                ingredFrozenPeppers,
                 ingredChiliCumin,
-                ingredChilipowder,
                 ingredCoriander
         };
 
             context.Ingredients.AddRange(ingreds);
             context.SaveChanges();
-
+*/
             var chiliIngreds = new Ingredient[]
             {
                 ingredBlackBeans1,
@@ -186,34 +214,6 @@ namespace WeeklyMeals.Data
                 ingredBasmati
             };
 
-            /*
-            var steps = new Step[]
-            {
-                new Step { Name = "Bring pot small pot of water to a boil, add lentils, boil at med-hi for 10 min, then drain", RecipeID = 1 },
-                new Step { Name = "Saute onion and mushrooms 5 mins", RecipeID = 1 },
-                new Step { Name = "Add garlic and cumin seeds 1 min.", RecipeID = 1 },
-                new Step { Name = "Add lentils, rice, veg stock, bring to a boil, then simmer covered 15 min.", RecipeID = 1 }
-            };*/
-            //context.Steps.AddRange(steps);
-            //context.SaveChanges();
-
-            //    var mealPlanRecipes = new MealPlanRecipe[]
-            //    {
-            //        new MealPlanRecipe{MealPlanID=1,RecipeID=1},
-            //        new MealPlanRecipe{MealPlanID=2,RecipeID=2},
-            //        new MealPlanRecipe{MealPlanID=2,RecipeID=3},
-            //        new MealPlanRecipe{MealPlanID=3,RecipeID=1},
-            //        new MealPlanRecipe{MealPlanID=3,RecipeID=2},
-            //        new MealPlanRecipe{MealPlanID=3,RecipeID=4},
-            //        new MealPlanRecipe{MealPlanID=3,RecipeID=5},
-            //    };
-
-            ////var food = new Food { Name = "Lentils", Category="Beans"}
-
-            //context.MealPlanRecipes.AddRange(mealPlanRecipes);
-            //    context.SaveChanges();
-            //}
-
             var recipes = new Recipe[]
             {
                 new Recipe{Name="Lentils & Rice", Steps = steps, Ingredients = lentilRiceIngreds, ImageUrl = "~/images/lentilsandrice.jpg", NumberServings = 6},
@@ -221,7 +221,9 @@ namespace WeeklyMeals.Data
                 //new Recipe{Name="Pinto bean chili"},
                 //new Recipe{Name="Peanut stir-fry"},
                 new Recipe{Name="French lentils", ImageUrl = "~/images/frenchlentils.jpg", NumberServings = 8},
-                new Recipe{Name="SNAP-Mexican", Ingredients= snapIngreds, ImageUrl="~/images/frozenveg.jpg", NumberServings=4}
+                new Recipe{Name="Quick Mexican", Ingredients= snapIngreds, ImageUrl="~/images/beansrice.jpg", NumberServings=4}, //Ingredients= snapIngreds
+                new Recipe{Name="Quick Indian", Ingredients= snapIndianIngreds, ImageUrl="~/images/indianSNAP.jpg", NumberServings=4}, //
+                new Recipe{Name="Quick bowl", Ingredients= snapBowlIngreds, ImageUrl="~/images/beansricegreens.jpg", NumberServings=1} //Ingredients= snapBowlIngreds,
             };
 
             context.Recipes.AddRange(recipes);

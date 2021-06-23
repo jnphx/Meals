@@ -70,7 +70,10 @@ namespace WeeklyMeals.Pages.Recipes
             //RecipesIQ = RecipesIQ.FirstOrDefault(mp => mp.MealPlanID == SelectedMealPlanId);
 
             MealPlan = RecipesIQ.FirstOrDefault(mp => mp.MealPlanID == SelectedMealPlanId);
-            CurrentPlanName = MealPlan.Name;
+            if (MealPlan != null)
+            {
+                CurrentPlanName = MealPlan.Name;
+            }
             MealPlans = await RecipesIQ.AsNoTracking().ToListAsync();
 
             //Use linq to sum MealPlanRecipes.NumServings * MealPlanRecipes.PercentForMe
