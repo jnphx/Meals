@@ -18,6 +18,10 @@ namespace WeeklyMeals.Models
         [Required]
         public int PrepTypeID { get; set; }
 
+        public int MaxSize { get; set; }
+
+        public bool Optional { get; set; }
+
         //foreign key to Recipe
         public Recipe Recipe { get; set; }
 

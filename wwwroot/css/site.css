@@ -50,6 +50,25 @@ span {
 
 }
 
+.custom-overlay {
+    background-image: linear-gradient(transparent 0,#5cb8b2 0);
+    background-repeat: repeat-x;
+    background-size: 2px 7px;
+    display: inline;
+    padding-right: 5px;
+    font-size: 70px;
+    font-size: 4.375rem;
+    line-height: 80px;
+    background-position: 0 72%;
+    letter-spacing: -.8px;
+}
+
+.custom-label {
+    text-transform: uppercase;
+    font-family: font-family: Overpass,Arial,Tahoma,sans-serif;
+    font-size: 1.25rem;
+}
+
 .text-location {
     display: inline-block;
     line-height: normal;
@@ -99,6 +118,12 @@ span {
 }
 
 .card-img-top {
+    width: 100%;
+    height: 10vw;
+    object-fit: cover;
+}
+
+.card-img-bot {
     width: 100%;
     height: 10vw;
     object-fit: cover;
@@ -182,8 +207,10 @@ html {
 h1, h2, h3, h4, h5, h6 {
     font-size: 14px;
     font-family: Overpass,Arial,Tahoma,sans-serif;
-    color: #5cb8b2;
+    //color: #5cb8b2;
+    color: #000;
     font-weight: 700;
+    text-transform: uppercase;
 }
 
 h3 {
@@ -226,7 +253,8 @@ a {
 
 body, button, input, select, textarea {
     font-size: 14px;
-    color: #002940;
+    //color: #002940;
+    color: black;
     font-family: Overpass,Arial,Tahoma,sans-serif;
 }
 

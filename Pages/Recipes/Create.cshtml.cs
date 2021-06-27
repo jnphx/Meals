@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using WeeklyMeals.Data;
 using WeeklyMeals.Models;
 
 namespace WeeklyMeals.Pages.Recipes
@@ -35,10 +30,16 @@ namespace WeeklyMeals.Pages.Recipes
                 return Page();
             }
 
-            if (Recipe.ImageUrl == "" )
+            string chosenFile = Request.Form["ImageURL"];
+            if (chosenFile == "")
             {
                 Recipe.ImageUrl = "~/images/norecipe.jpg";
             }
+            else
+            {
+                Recipe.ImageUrl = "~/images/" + chosenFile;
+            }
+
             _context.Recipes.Add(Recipe);
             await _context.SaveChangesAsync();
 

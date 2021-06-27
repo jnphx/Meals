@@ -4,85 +4,105 @@
 @{
     ViewData["Title"] = "Meal Plans";
 }
-<div style="padding-bottom: 10px; padding-left:40px; box-shadow: 0 5px 10px rgba(0,0,0,.1);" class="pt-4">
 
+<div style="padding-bottom: 10px; padding-left:40px; box-shadow: 0 5px 10px rgba(0,0,0,.1);" class="pt-4">
     <form asp-page="./Index" method="get">
         <div class="form-inline no-color">
-            <select asp-for="SelectedMealPlanId" asp-items="Model.Options">
+            <select class="col-md-2" asp-for="SelectedMealPlanId" asp-items="Model.Options">
                 <option value="">Pick your meal plan</option>
             </select>
-            <input type="submit" style="margin-left: 2px; color: #5cb8b2;" value="Select" />
-            <div style="margin-left: 150px;" class="text-location">
+            <input type="submit" class="col-md-1" color: #5cb8b2;" value="Select" />
+            <div class="custom-control custom-switch col-md-1 offset-md-1">
+                <input asp-for="@Model.MealPlan.RoundOutMeals" type="checkbox" class="custom-control-input" id="customSwitches">
+                <label class="custom-control-label" for="customSwitches">Round out meals</label>
+            </div>
+            <input type="text" id="MealPlanIDField" value="@Model.MealPlan.MealPlanID" />
+             <div class="text-location col-md-2">
                 <div class="tbsmall">MEAL PLAN</div>
                 <div class="title">@Model.CurrentPlanName</div>
             </div>
             <span class="totalservings">@Model.TotalServings</span>
             <div class="tbsmall" style="margin-left: 4px;">SERVINGS</div>
-            <span style="margin-left: 340px;">
+            <div class="col-md-3">
                 <a asp-page="/Recipes/ChooseRecipe" class="btn btn-primary m-1">Add a new recipe</a>
-            </span>
-        </div>
-    </form>
-
-</div>
-
-<div style="margin-left:150px; margin-right:150px;">
-    <div class="row justify-content-center">
-        <div style="margin-top: 20px; margin-left: auto; margin-right: auto; padding-bottom: 40px;">
-            <div class="card-deck">
-                @foreach (var recipe in Model.MealPlan.MealPlanRecipes)
-                {
-                    <div class="card" style="margin-left: 7px; margin-right: 0px; max-width: 250px;">
-                        <div class="card-body">
-                            <a class="title" asp-page="/Recipes/Details" asp-route-ID="@recipe.Recipe.RecipeID">@recipe.Recipe.Name</a>
-                            <div class="recipe-additional-info">#Servings: @recipe.Recipe.NumberServings</div>
-                            <form method="post">
-                                <span class="recipe-additional-info">#Batches: </span>
-                                <input type="submit" value="-" asp-page-handler="CheckDelete" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="minus" />
-                                <span class="plusminusinput">@recipe.NumberBatches</span>
-                                <input type="submit" value="+" asp-page-handler="CheckAdd" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="plus" />
-                            </form>
-                            @if (recipe.PercentForYou < 1)
-                            {
-                                <div class="recipe-additional-info">Percent for you: @string.Format("{0:0}%", recipe.PercentForYou * 100)</div>
-                            }
-                        </div>
-                        <img class="card-img-bottom" src="@Url.Content(@recipe.Recipe.ImageUrl)" />
-                    </div>
-                }
             </div>
         </div>
-    </div>
+    </form>
+</div>
+
+<div class="row" style="margin-left: 100px; margin-right: 100px; margin-top: 40px;">
+    @foreach (var recipe in Model.MealPlan.MealPlanRecipes)
+    {
+        <div style="margin-bottom:30px; width: 22%; margin-left: 14px;">
+            <div class="card">
+                <div class="card-body">
+                    <a class="title" asp-page="/Recipes/Details" asp-route-ID="@recipe.Recipe.RecipeID">@recipe.Recipe.Name</a>
+                    <div class="recipe-additional-info">#Servings: @recipe.Recipe.NumberServings</div>
+                    <form method="post">
+                        <span class="recipe-additional-info">#Batches: </span>
+                        <input type="submit" value="-" asp-page-handler="CheckDelete" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="minus" />
+                        <span class="plusminusinput">@recipe.NumberBatches</span>
+                        <input type="submit" value="+" asp-page-handler="CheckAdd" asp-route-MealPlanRecipeID="@recipe.MealPlanRecipeID" class="plus" />
+                    </form>
+                    @if (recipe.Recipe.PercentForYou < 1)
+                    {
+                        <div class="recipe-additional-info">Percent for you: @string.Format("{0:0}%", recipe.Recipe.PercentForYou * 100)</div>
+                    }
+                </div>
+                <img class="card-img-bot" src="@Url.Content(@recipe.Recipe.ImageUrl)" />
+            </div>
+        </div>
+    }
 </div>
 
 @section Scripts
 {
     <script>
-        $('.dropdown-content').on('click', function () {
-            alert('here');
-            alert(this.href);
-            e.preventDefault();
-        });
-
-        $('#minusbutton').on('click', function (e) {
-            alert('onclick');
+        $('#customSwitches').on('change', function (e) {
             e.preventDefault(); //Prevents form refresh
+            var MealPlanIDValue = $("#MealPlanIDField").val();
             $.ajax({
-                type: "POST",
-                url: "/Demo?handler=CheckDeleteAjax",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("XSRF-TOKEN",
-                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                type: "GET",
+                data: {
+                    MealPlanID: MealPlanIDValue
                 },
+                url: "/Index?handler=ChangeSwitch",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    alert(success);
+                    alert('success');
                 },
                 failure: function (response) {
-                    alert(response);
+                    alert('failure');
                 }
             });
         });
+           
+            $('.dropdown-content').on('click', function () {
+                alert('here');
+                alert(this.href);
+                e.preventDefault();
+            });
+
+            $('#minusbutton').on('click', function (e) {
+                alert('onclick');
+                e.preventDefault(); //Prevents form refresh
+                $.ajax({
+                    type: "POST",
+                    url: "/Demo?handler=CheckDeleteAjax",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("XSRF-TOKEN",
+                            $('input:hidden[name="__RequestVerificationToken"]').val());
+                    },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        alert(success);
+                    },
+                    failure: function (response) {
+                        alert(response);
+                    }
+                });
+            });
     </script>
 }

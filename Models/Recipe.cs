@@ -16,7 +16,12 @@ namespace WeeklyMeals.Models
         public string ImageUrl { get; set; }
 
         [Required]
+        [Display(Name = "# Servings")]
         public int NumberServings { get; set; }
+
+        public int GrainServingsMissing { get; set; }
+        public int VegServingsMissing { get; set; }
+        public double PercentForYou { get; set; }
 
         //[Required]
         public ICollection<Ingredient> Ingredients { get; set; }
@@ -25,6 +30,11 @@ namespace WeeklyMeals.Models
         public ICollection<Step> Steps { get; set; }
 
         public ICollection<MealPlanRecipe> MealPlanRecipes { get; set; }
+
+        public Recipe()
+        {
+            PercentForYou = 1;
+        }
 
     }
 }

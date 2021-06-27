@@ -5,41 +5,51 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Add Recipe</h1>
+<div style="margin-left:120px; padding-top:40px;">
+    <h1 class="custom-overlay">Add New Recipe</h1>
+    <div style="padding-top: 40px;" class="row">
+        <div class="col-md-8">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group row">
+                    <label asp-for="Recipe.Name" class="control-label custom-label col-sm-3"></label>
+                    <input asp-for="Recipe.Name" class="form-control col-sm-6" />
+                    <span asp-validation-for="Recipe.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Recipe.ImageUrl" class="control-label custom-label col-sm-3"></label>
+                    <div class="custom-file col-sm-6">
+                        <input type="file" class="custom-file-input" id="inputGroupFile01" name="ImageURL">
+                        <label class="custom-file-label">Choose file</label>
+                    </div>
+                    <span asp-validation-for="Recipe.ImageUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Recipe.NumberServings" class="control-label custom-label col-sm-3"></label>
+                    <input asp-for="Recipe.NumberServings" class="form-control col-sm-1" />
+                    <span asp-validation-for="Recipe.NumberServings" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
 
-<h4>Recipe</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Recipe.Name" class="control-label"></label>
-                <input asp-for="Recipe.Name" class="form-control" />
-                <span asp-validation-for="Recipe.Name" class="text-danger"></span>
-            </div>
-            <input type="file" name="file_Uploader" />
-            <div class="form-group">
-                <label asp-for="Recipe.ImageUrl" class="control-label"></label>
-                <input asp-for="Recipe.ImageUrl" class="form-control" />
-                <span asp-validation-for="Recipe.ImageUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Recipe.NumberServings" class="control-label"></label>
-                <input asp-for="Recipe.NumberServings" class="form-control" />
-                <span asp-validation-for="Recipe.NumberServings" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <div>
+        <a asp-page="Index">Back to List</a>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
-
 @section Scripts {
+    <script>
+        $('#inputGroupFile01').on('change',function(e){
+            //get the file name
+            var fileName = e.target.files[0].name;
+            //replace the "Choose a file" label
+            $(this).next('.custom-file-label').html(fileName);
+        })
+    </script>
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

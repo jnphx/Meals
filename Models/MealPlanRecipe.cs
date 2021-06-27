@@ -13,7 +13,6 @@ namespace WeeklyMeals.Models
         public int RecipeID { get; set; }
         [Required]
         public double NumberBatches { get; set; }
-        public double PercentForYou { get; set; }
 
         public MealPlan MealPlan { get; set; }
         public Recipe Recipe { get; set; }
@@ -21,7 +20,6 @@ namespace WeeklyMeals.Models
         public MealPlanRecipe()
         {
             NumberBatches = 1;
-            PercentForYou = 1;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace WeeklyMeals.Data
                                     {
                                         r.NumberServings,
                                         mpr.NumberBatches,
-                                        mpr.PercentForYou
+                                        r.PercentForYou
                                     }).ToList();
 
             return mealPlanServings.Select(g => g.NumberBatches * g.NumberServings * g.PercentForYou).Sum();
@@ -53,6 +53,21 @@ namespace WeeklyMeals.Data
                     _context.SaveChanges();
                 }
             }
+        }
+
+        public bool UpdateMealRounding(int MealPlanID, bool Round)
+        {
+            try
+            {
+                MealPlan mp = _context.MealPlans.Find(MealPlanID);
+                mp.RoundOutMeals = Round;
+                _context.Update(mp);
+                _context.SaveChanges();
+            } catch (Exception e)
+            {
+                return false;
+            }
+            return true;
         }
 
         public List<string> GetDemoList()

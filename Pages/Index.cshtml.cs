@@ -83,7 +83,7 @@ namespace WeeklyMeals.Pages.Recipes
                                    where m.MealPlanID == userSettings.MealPlanID
                                    select new
                                    {
-                                       r.NumberServings, mpr.NumberBatches, mpr.PercentForYou
+                                       r.NumberServings, mpr.NumberBatches, r.PercentForYou
                                    }).ToList();
 
             TotalServings = mealPlanServings.Select(g => g.NumberBatches * g.NumberServings * g.PercentForYou).Sum();
@@ -160,6 +160,16 @@ namespace WeeklyMeals.Pages.Recipes
             }
 
             return RedirectToPage("./Index");
+        }
+
+        public JsonResult OnGetChangeSwitch(int MealPlanID)
+        {
+            bool roundVal = true;
+            var repo = new DemoRepo(_context);
+
+            bool result = repo.UpdateMealRounding(MealPlanID, roundVal);
+
+            return new JsonResult(result);
         }
 
         public async Task<IActionResult> OnPostCheckAdd(int? MealPlanRecipeID)
